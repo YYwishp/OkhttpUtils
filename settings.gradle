@@ -1,0 +1,1 @@
+include ':app', ':dragview', ':activity_task', ':gridviewscrollview', ':photo', ':takephoto_library'

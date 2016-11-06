@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+
+    android:layout_height="match_parent">
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#ff0"/>
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="24dp"
+        android:background="#ff0f"
+        android:text="你好，沉浸式状态栏"/>
+
+</LinearLayout>

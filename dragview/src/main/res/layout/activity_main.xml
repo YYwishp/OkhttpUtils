@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.example.dragview.DragView
+        android:layout_margin="10dp"
+        android:id="@+id/dragview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#ff00ff"/>
+
+    <Button
+        android:onClick="open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开启另一个"/>
+
+</LinearLayout>

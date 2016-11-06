@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppBaseTheme" parent="android:Theme.Light.NoTitleBar">
+
+    </style>
+    <!--沉浸式-->
+    <!--<style name="AppTheme" parent="AppBaseTheme">-->
+        <!--&lt;!&ndash; Customize your theme here.  沉浸式 &ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:windowTranslucentStatus">true</item>&ndash;&gt;-->
+    <!--</style>-->
+
+    <style name="MyTranslucent" parent="android:Theme.Translucent">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!--设置背景防止白屏-->
+    <style name="Theme.Start" parent="AppTheme">
+        <!--<item name="android:windowBackground">@drawable/start_up</item>-->
+        <!--底部的导航栏，返回啊，Home键-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+    </style>
+</resources>
