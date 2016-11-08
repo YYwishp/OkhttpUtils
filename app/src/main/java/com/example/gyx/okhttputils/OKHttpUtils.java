@@ -283,9 +283,7 @@ public class OKHttpUtils {
                 String fileName = file.getName();//文件名称
                 RequestBody requestBody = RequestBody.create(MediaType.parse(getMimeType(fileName)), file);
                 //添加file input块的数据
-                builder.addPart(
-                        Headers.of("Content-Disposition", "form-data:name\"" + formFiledName[i] + "\";fileName\"" + fileName + "\"")
-                        , requestBody);
+                builder.addPart(Headers.of("Content-Disposition", "form-data:name\"" + formFiledName[i] + "\";fileName\"" + fileName + "\""), requestBody);
             }
         }
         RequestBody requestBody = builder.build();
