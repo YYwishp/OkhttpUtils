@@ -42,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		MainFragment homeFragment = new MainFragment();
+		//获取fragment管理者
+		getSupportFragmentManager()
+				.beginTransaction()
+				//参数1:fragment替换的控件的id
+				//参数2:替换的fragment
+				//参数3:fragment的标示
+				.replace(R.id.content_frame, homeFragment, "HOME")
+				.commit();
 
 		mContext = this;
 		//刷新

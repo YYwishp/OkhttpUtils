@@ -29,9 +29,7 @@ public class MainActivity extends AppCompatActivity {
 		myGridview = (GridView) findViewById(R.id.gridview);
 		list = new ArrayList<>();
 		list.add("1");
-		list.add("2");
-		list.add("3");
-		list.add("4");
+
 		myAdapter = new MyAdapter();
 		myGridview.setAdapter(myAdapter);
 		myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,16 +56,19 @@ public class MainActivity extends AppCompatActivity {
 	class MyAdapter extends BaseAdapter {
 		@Override
 		public int getCount() {
+			LogUtil.e("getCount");
 			return list.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
+			LogUtil.e("getItem");
 			return list.get(position);
 		}
 
 		@Override
 		public long getItemId(int position) {
+			LogUtil.e("getItemId");
 			return position;
 		}
 
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 			View inflate = View.inflate(MainActivity.this, R.layout.test, null);
 			TextView text= (TextView) inflate.findViewById(R.id.text);
 			text.setText(list.get(position));
+			LogUtil.e("getView");
 			return inflate;
 		}
 	}
