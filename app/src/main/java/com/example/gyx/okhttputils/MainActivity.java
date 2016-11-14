@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -18,14 +19,26 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     private Context mContext = this;
     private Handler handler = new Handler();
-
+    private EditText edit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loadNetworkData();
-        test();
+
+
+
+      //  loadNetworkData();
+       // test();
+        initView();
+    }
+
+    private void initView() {
+
+
+        edit = (EditText) findViewById(R.id.edit);
+        String trim = edit.getText().toString().trim();
+        Log.e("文字----","----"+trim);
     }
 
     private void test() {
