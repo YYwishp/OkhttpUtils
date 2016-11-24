@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,12 +42,15 @@ public class MainActivity extends AppCompatActivity {
 		myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Toast.makeText(MainActivity.this, "我是 +:" + position, Toast.LENGTH_SHORT).show();
+				for (int n = 0; n < list.size(); n++) {
+					list.set(n, "1");
+				}
+				list.set(position, "2");
 
 
 
-				RadioButton radio = myAdapter.getRadio();
-				radio.setChecked(true);
-
+				myAdapter.notifyDataSetChanged();
 
 
 
@@ -100,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
 			String s = list.get(position);
 			if (s.equals("1")) {
 				radio.setChecked(false);
+			} else {
+				radio.setChecked(true);
 			}
 			return inflate;
 		}

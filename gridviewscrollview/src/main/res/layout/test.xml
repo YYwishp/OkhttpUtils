@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
 
-
     <RadioButton
-
-        android:id="@+id/radio"
+        android:clickable="false"
+        android:focusable="false"
+    android:id="@+id/radio"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/selector_checkbox_daibi"/>
+
+    <TextView
+        android:text="sdfsdfsdfsdfsd"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+
 </LinearLayout>
