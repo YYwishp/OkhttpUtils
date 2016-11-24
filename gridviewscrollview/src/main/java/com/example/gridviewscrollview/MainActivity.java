@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,16 +30,26 @@ public class MainActivity extends AppCompatActivity {
 		myGridview = (GridView) findViewById(R.id.gridview);
 		list = new ArrayList<>();
 		list.add("1");
+		list.add("1");
+		list.add("1");
+		list.add("1");
+		list.add("1");
+		list.add("1");
 
 		myAdapter = new MyAdapter();
 		myGridview.setAdapter(myAdapter);
 		myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				LogUtil.e("点击了"+id);
 
-				list.remove(position);
-				myAdapter.notifyDataSetChanged();
+
+
+				RadioButton radio = myAdapter.getRadio();
+				radio.setChecked(true);
+
+
+
+
 			}
 		});
 	}
@@ -54,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	class MyAdapter extends BaseAdapter {
+		public RadioButton getRadio() {
+			return radio;
+		}
+
+		public void setRadio(RadioButton radio) {
+			this.radio = radio;
+		}
+
+		private RadioButton radio;
+
 		@Override
 		public int getCount() {
 			LogUtil.e("getCount");
@@ -75,9 +96,11 @@ public class MainActivity extends AppCompatActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View inflate = View.inflate(MainActivity.this, R.layout.test, null);
-			TextView text= (TextView) inflate.findViewById(R.id.text);
-			text.setText(list.get(position));
-			LogUtil.e("getView");
+			radio = (RadioButton) inflate.findViewById(R.id.radio);
+			String s = list.get(position);
+			if (s.equals("1")) {
+				radio.setChecked(false);
+			}
 			return inflate;
 		}
 	}
