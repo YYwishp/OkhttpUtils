@@ -7,18 +7,26 @@
               android:layout_height="match_parent">
 
 
-    <RadioButton
-        android:clickable="false"
-        android:focusable="false"
-    android:id="@+id/radio"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/selector_checkbox_daibi"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:text="sdfsdfsdfsdfsd"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
 
+        <RadioButton
+            android:clickable="false"
+            android:focusable="false"
+            android:id="@+id/radio"
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/selector_checkbox_daibi"/>
+
+        <TextView
+            android:text="sdfsdfsdfsdfsd"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/textView"/>
+
+    </RelativeLayout>
 
 </LinearLayout>
