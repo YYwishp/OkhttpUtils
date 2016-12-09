@@ -8,6 +8,7 @@ import org.cryptonode.jncryptor.AES256JNCryptor;
 import org.cryptonode.jncryptor.CryptorException;
 import org.cryptonode.jncryptor.JNCryptor;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -34,19 +35,40 @@ public class MainActivity extends AppCompatActivity {
 		JNCryptor cryptor = new AES256JNCryptor();
 
 		byte[] plaintext = "+86-15810623041".getBytes();
-		String password = "+86-15810623041relax2015";
-		stringMD5 = MD5Util.getStringMD5(password);
+		String key = "+86-15810623041relax2015";
+		stringMD5 = MD5Util.getStringMD5(key);
 
 		try {
 			byte[] ciphertext = cryptor.encryptData(plaintext, stringMD5.toCharArray());
-
-
 			String base64Encoder = new BASE64Encoder().encode(ciphertext);
 			Log.e("加密后",base64Encoder);
-
+			//解密
+			byte[] decode = decode(base64Encoder);
+			byte[] bytes = cryptor.decryptData(decode, stringMD5.toCharArray());
+			String realString = new String(bytes);
+			Log.e("解密后",realString);
 		} catch (CryptorException e) {
 			// Something went wrong
 			e.printStackTrace();
 		}
+	}
+
+
+	/**
+	 * 解码
+	 *
+	 * @param str
+	 * @return string
+	 */
+	public static byte[] decode(String str) {
+		byte[] bt = null;
+		try {
+			sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();
+			bt = decoder.decodeBuffer(str);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return bt;
 	}
 }
