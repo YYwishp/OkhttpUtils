@@ -1,8 +1,10 @@
 package com.example.dialog;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
+import android.widget.Toast;
 
 import org.cryptonode.jncryptor.AES256JNCryptor;
 import org.cryptonode.jncryptor.CryptorException;
@@ -15,7 +17,7 @@ import sun.misc.BASE64Encoder;
 /**
  * 加密
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 	private String stringMD5;
 
 	/**
@@ -39,25 +41,30 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		/*JNCryptor cryptor = new AES256JNCryptor();
+		JNCryptor cryptor = new AES256JNCryptor();
 		byte[] plaintext = "+86-15810623041".getBytes();
 		String key = "+86-15810623041relax2015";
+
+		Toast.makeText(this, "加密前+86-15810623041", Toast.LENGTH_SHORT).show();
 		stringMD5 = MD5Util.getStringMD5(key);
 		try {
 			byte[] ciphertext = cryptor.encryptData(plaintext, stringMD5.toCharArray());
 			String base64Encoder = new BASE64Encoder().encode(ciphertext);
 			Log.e("加密后", base64Encoder);
+			Toast.makeText(this, "加密后"+base64Encoder, Toast.LENGTH_SHORT).show();
 			//解密
 			byte[] decode = decode(base64Encoder);
 			byte[] bytes = cryptor.decryptData(decode, stringMD5.toCharArray());
 			String realString = new String(bytes);
 			Log.e("解密后", realString);
+			//Toast.makeText(this, "加密后"+, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "解密后" + realString, Toast.LENGTH_SHORT).show();
 		} catch (CryptorException e) {
 			// Something went wrong
 			e.printStackTrace();
-		}*/
-		String encode = "+86-15810623041";
-		String key = "+86-15810623041relax2015";
+		}
+		/*String encode = "+86-15810623041";
+		String key = "+86-15810623041relax2015";*/
 
 
 	}

@@ -11,15 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-
         <RadioButton
             android:clickable="false"
             android:focusable="false"
             android:id="@+id/radio"
-
             android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/selector_checkbox_daibi"/>
+            android:layout_height="100dp"/>
+
 
         <TextView
             android:text="sdfsdfsdfsdfsd"

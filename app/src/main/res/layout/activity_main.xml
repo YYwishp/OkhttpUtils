@@ -28,7 +28,7 @@
         android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-      android:drawableLeft="@drawable/selector_protected_dan"
+
         android:button="@null"
      />
     <EditText
