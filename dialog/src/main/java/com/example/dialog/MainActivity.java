@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 	 * @param str
 	 * @return string
 	 */
-	public static byte[] decode(String str) {
+	public static byte[] deCodeBase64(String str) {
 		byte[] bt = null;
 		try {
 			sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();
@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		JNCryptor cryptor = new AES256JNCryptor();
+		/*JNCryptor cryptor = new AES256JNCryptor();
 		byte[] plaintext = "+86-15810623041".getBytes();
 		String key = "+86-15810623041relax2015";
 
@@ -53,8 +53,8 @@ public class MainActivity extends Activity {
 			Log.e("加密后", base64Encoder);
 			Toast.makeText(this, "加密后"+base64Encoder, Toast.LENGTH_SHORT).show();
 			//解密
-			byte[] decode = decode(base64Encoder);
-			byte[] bytes = cryptor.decryptData(decode, stringMD5.toCharArray());
+			byte[] deCodeBase64 = deCodeBase64(base64Encoder);
+			byte[] bytes = cryptor.decryptData(deCodeBase64, stringMD5.toCharArray());
 			String realString = new String(bytes);
 			Log.e("解密后", realString);
 			//Toast.makeText(this, "加密后"+, Toast.LENGTH_SHORT).show();
@@ -62,11 +62,18 @@ public class MainActivity extends Activity {
 		} catch (CryptorException e) {
 			// Something went wrong
 			e.printStackTrace();
-		}
-		/*String encode = "+86-15810623041";
-		String key = "+86-15810623041relax2015";*/
-
-
+		}*/
+		String encode = "+86-15810623041";
+		String key = "+86-15810623041";
+		Log.e("加密前时间", System.currentTimeMillis()+"");
+		String enCode = enCode(encode, key);
+		Log.e("加密后时间", System.currentTimeMillis()+"");
+		Toast.makeText(this, "加密后"+enCode, Toast.LENGTH_LONG).show();
+		Log.e("加密后", enCode);
+		String deCode = deCode(enCode, key);
+		Log.e("解密后时间", System.currentTimeMillis()+"");
+		//Toast.makeText(this, "解密后"+deCode, Toast.LENGTH_SHORT).show();
+		Log.e("解密后", deCode);
 	}
 
 	/**
@@ -100,11 +107,11 @@ public class MainActivity extends Activity {
 		//解密
 		try {
 			JNCryptor cryptor = new AES256JNCryptor();
-			byte[] decode = decode(decodeString);
+			byte[] decode = deCodeBase64(decodeString);
 			String keyMD5 = MD5Util.getStringMD5(key+"relax2015");
 			byte[] bytes = cryptor.decryptData(decode, keyMD5.toCharArray());
 			String realString = new String(bytes);
-			Log.e("解密后", realString);
+			//Log.e("解密后", realString);
 			return realString;
 		} catch (CryptorException e) {
 			e.printStackTrace();
