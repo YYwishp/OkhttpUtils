@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        applicationId "com.example.dialog"
+        applicationId "com.example.swip"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -23,15 +23,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:design:25.0.0'
     testCompile 'junit:junit:4.12'
-    compile files('libs/jncryptor-1.2.0.jar')
-    compile files('libs/commons-codec-1.8.jar')
-    compile files('libs/BASE64Encoder.jar')
-    compile 'com.umeng.analytics:analytics:latest.integration'
-
 }

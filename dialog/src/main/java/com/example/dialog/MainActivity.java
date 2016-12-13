@@ -1,16 +1,28 @@
 package com.example.dialog;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.umeng.analytics.MobclickAgent;
 
 import org.cryptonode.jncryptor.AES256JNCryptor;
 import org.cryptonode.jncryptor.CryptorException;
 import org.cryptonode.jncryptor.JNCryptor;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
+import java.lang.reflect.Method;
 
 import sun.misc.BASE64Encoder;
 
@@ -40,6 +52,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MobclickAgent.setDebugMode( true );
 		setContentView(R.layout.activity_main);
 		/*JNCryptor cryptor = new AES256JNCryptor();
 		byte[] plaintext = "+86-15810623041".getBytes();
@@ -63,7 +76,8 @@ public class MainActivity extends Activity {
 			// Something went wrong
 			e.printStackTrace();
 		}*/
-		String encode = "+86-15810623041";
+		//=====================加密==================
+		/*String encode = "+86-15810623041";
 		String key = "+86-15810623041";
 		Log.e("加密前时间", System.currentTimeMillis()+"");
 		String enCode = enCode(encode, key);
@@ -73,9 +87,44 @@ public class MainActivity extends Activity {
 		String deCode = deCode(enCode, key);
 		Log.e("解密后时间", System.currentTimeMillis()+"");
 		//Toast.makeText(this, "解密后"+deCode, Toast.LENGTH_SHORT).show();
-		Log.e("解密后", deCode);
+		Log.e("解密后", deCode);*/
+		getDeviceInfo(this);
+		Log.e("mac地址",  getMac());
+
+	}
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 
+	/**
+	 * 获取手机mac地址
+	 * @return
+	 */
+	public static String getMac() {
+		String macSerial = "";
+		try {
+			Process pp = Runtime.getRuntime().exec(
+					"cat /sys/class/net/wlan0/address");
+			InputStreamReader ir = new InputStreamReader(pp.getInputStream());
+			LineNumberReader input = new LineNumberReader(ir);
+
+			String line;
+			while ((line = input.readLine()) != null) {
+				macSerial += line.trim();
+			}
+
+			input.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return macSerial;
+	}
 	/**
 	 * 加密
 	 * @param encodeString
@@ -119,5 +168,83 @@ public class MainActivity extends Activity {
 		return null;
 	}
 
+
+	public static boolean checkPermission(Context context, String permission) {
+		boolean result = false;
+		if (Build.VERSION.SDK_INT >= 23) {
+			try {
+				Class<?> clazz = Class.forName("android.content.Context");
+				Method method = clazz.getMethod("checkSelfPermission", String.class);
+				int rest = (Integer) method.invoke(context, permission);
+				if (rest == PackageManager.PERMISSION_GRANTED) {
+					result = true;
+				} else {
+					result = false;
+				}
+			} catch (Exception e) {
+				result = false;
+			}
+		} else {
+			PackageManager pm = context.getPackageManager();
+			if (pm.checkPermission(permission, context.getPackageName()) == PackageManager.PERMISSION_GRANTED) {
+				result = true;
+			}
+		}
+		return result;
+	}
+	public static String getDeviceInfo(Context context) {
+		try {
+			org.json.JSONObject json = new org.json.JSONObject();
+			android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context
+					.getSystemService(Context.TELEPHONY_SERVICE);
+			String device_id = null;
+			if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+				device_id = tm.getDeviceId();
+			}
+			String mac = null;
+			FileReader fstream = null;
+			try {
+				fstream = new FileReader("/sys/class/net/wlan0/address");
+			} catch (FileNotFoundException e) {
+				fstream = new FileReader("/sys/class/net/eth0/address");
+			}
+			BufferedReader in = null;
+			if (fstream != null) {
+				try {
+					in = new BufferedReader(fstream, 1024);
+					mac = in.readLine();
+				} catch (IOException e) {
+				} finally {
+					if (fstream != null) {
+						try {
+							fstream.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					if (in != null) {
+						try {
+							in.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+			json.put("mac", mac);
+			if (TextUtils.isEmpty(device_id)) {
+				device_id = mac;
+			}
+			if (TextUtils.isEmpty(device_id)) {
+				device_id = android.provider.Settings.Secure.getString(context.getContentResolver(),
+						android.provider.Settings.Secure.ANDROID_ID);
+			}
+			json.put("device_id", device_id);
+			return json.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }
