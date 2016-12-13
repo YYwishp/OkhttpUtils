@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 		strings.add(true);
 		Toast.makeText(this,"选中的是什么"+ strings.get(0),Toast.LENGTH_SHORT).show();
 		Toast.makeText(this,"选中的是什么"+ strings.get(1),Toast.LENGTH_SHORT).show();
-
+/*
 
 		activityMain = (LinearLayout) findViewById(R.id.activity_main);
 		//swipeLayout = (SuperSwipeRefreshLayout) findViewById(R.id.swipe_layout);
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 			//list.add("1");
 
 		}
-		listview.setAdapter(new MyAdapter());
+		listview.setAdapter(new MyAdapter());*/
 	}
 
 	private class MyAdapter extends BaseAdapter{
