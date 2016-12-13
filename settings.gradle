@@ -1,1 +1,1 @@
-include ':app', ':dragview', ':activity_task', ':gridviewscrollview', ':photo', ':takephoto_library', ':arraylisttest', ':recyclerview-swipe', ':swiperecycler', ':touchevent', ':newfragment', ':dialog', ':fragmentviewpger', ':toast', ':twofinish'
+include ':app', ':dragview', ':activity_task', ':gridviewscrollview', ':photo', ':takephoto_library', ':arraylisttest', ':recyclerview-swipe', ':swiperecycler', ':touchevent', ':newfragment', ':dialog', ':fragmentviewpger', ':toast', ':twofinish', ':navigationtest'
