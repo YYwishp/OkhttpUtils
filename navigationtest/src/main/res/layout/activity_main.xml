@@ -8,20 +8,13 @@
     android:fitsSystemWindows="true"
     >
 
-    <RelativeLayout
+    <!-- fragment替换的控件 -->
+    <FrameLayout
+        android:id="@+id/layout_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-
-        <TextView
-            android:id="@+id/id_tv_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="HelloWorld"
-            android:textSize="30sp"/>
-    </RelativeLayout>
+        android:layout_height="0dip"
+        android:layout_weight="1.0"
+        />
 
     <android.support.design.widget.NavigationView
 
