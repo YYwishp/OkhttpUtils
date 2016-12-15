@@ -15,7 +15,7 @@
         android:layout_height="0dip"
         android:layout_weight="1.0"
         />
-
+<!--
     <android.support.design.widget.NavigationView
 
         android:id="@+id/id_nv_menu"
@@ -25,6 +25,14 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header_just_username"
         app:menu="@menu/menu_drawer"
-        />
+        />-->
+
+    <TextView
+        android:layout_marginRight="-65dp"
+        android:background="#fff"
+        android:layout_gravity="start"
+        android:text="sdfsdfsdfsdfsdf"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"/>
 
 </android.support.v4.widget.DrawerLayout>

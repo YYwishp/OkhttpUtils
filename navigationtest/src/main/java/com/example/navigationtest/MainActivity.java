@@ -10,6 +10,14 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 public class MainActivity extends FragmentActivity {
+
+
+	private DrawerLayout mDrawerLayout;
+	private NavigationView mNavigationView;
+	private FrameLayout layoutContent;
+	//标示按钮的索引值
+	private int index = 0;
+	//=======================================================================================
 	FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
 		//设置fragment个数
 		@Override
@@ -47,11 +55,7 @@ public class MainActivity extends FragmentActivity {
 			return baseFragment;
 		}
 	};
-	private DrawerLayout mDrawerLayout;
-	private NavigationView mNavigationView;
-	private FrameLayout layoutContent;
-	//标示按钮的索引值
-	private int index = 0;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +63,17 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 		layoutContent = (FrameLayout) findViewById(R.id.layout_content);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawer_layout);
-		mNavigationView = (NavigationView) findViewById(R.id.id_nv_menu);
+	/*	mNavigationView = (NavigationView) findViewById(R.id.id_nv_menu);
 		mNavigationView.setItemIconTintList(null);
+		//
 		setupDrawerContent(mNavigationView);
+		//
 		mNavigationView.setCheckedItem(R.id.nav_home);
 		//设置成首页
 		Fragment framFragment = (Fragment) fragmentPagerAdapter.instantiateItem(layoutContent, 0);
 		fragmentPagerAdapter.setPrimaryItem(null, 0, framFragment);
 		fragmentPagerAdapter.finishUpdate(null);
-
+*/
 
 
 

@@ -35,7 +35,7 @@
             android:icon="@mipmap/ic_launcher"
             android:title="Discussion"/>
         <item
-            
+
             android:id="@+id/nav_friends2"
             android:checkable="true"
             android:icon="@mipmap/ic_launcher"
