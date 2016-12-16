@@ -75,8 +75,6 @@ public class MainActivity extends FragmentActivity {
 		fragmentPagerAdapter.finishUpdate(null);
 */
 
-
-
 		//点击弹出侧拉菜单
 		/*idTvContent.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -89,7 +87,6 @@ public class MainActivity extends FragmentActivity {
 	private void setupDrawerContent(NavigationView navigationView) {
 		navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 			private MenuItem mPreMenuItem;
-
 			@Override
 			public boolean onNavigationItemSelected(MenuItem menuItem) {
 						/*if (mPreMenuItem != null) {
