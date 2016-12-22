@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,6 +41,22 @@ public class MainActivity extends AppCompatActivity {
         edit = (EditText) findViewById(R.id.edit);
         String trim = edit.getText().toString().trim();
         Log.e("文字----","----"+trim);
+        edit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                LogUtil.e("文字--前"+s);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                LogUtil.e("文字--中"+s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LogUtil.e("文字--后"+s);
+            }
+        });
     }
 
     private void test() {
