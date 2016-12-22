@@ -33,8 +33,8 @@ public class MainActivity extends Activity {
 		linear.setOrientation(LinearLayout.HORIZONTAL);
 
 		for (int n = 0; n<3;n++) {
-			SimpleDraweeView img = new SimpleDraweeView(this);
-			GenericDraweeHierarchyBuilder builder = new GenericDraweeHierarchyBuilder(getResources());
+			SimpleDraweeView img = new SimpleDraweeView(getApplicationContext());
+			GenericDraweeHierarchyBuilder builder = new GenericDraweeHierarchyBuilder(getApplicationContext().getResources());
 			GenericDraweeHierarchy hierarchy = builder
 
 					//设置圆形圆角参数；RoundingParams.asCircle()是将图像设置成圆形
