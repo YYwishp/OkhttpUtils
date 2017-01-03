@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.arraylisttest.ElasticScrollView
+        <com.example.arraylisttest.com.example.dontai_add_view.ElasticScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
          <LinearLayout
@@ -81,6 +81,6 @@
 
          </LinearLayout>
 
-        </com.example.arraylisttest.ElasticScrollView>
+        </com.example.arraylisttest.com.example.dontai_add_view.ElasticScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
