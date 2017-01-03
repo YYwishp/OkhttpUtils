@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.content.ContextCompat;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -18,6 +20,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 public class MainActivity extends Activity {
 	private LinearLayout linear;
+	private LinearLayout linHorizontal;
+	private TextView text;
+
+	private SimpleDraweeView imgHeader;
+	private TextView textname;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,35 @@ public class MainActivity extends Activity {
 	}
 
 	private void initView() {
+		linear = (LinearLayout) findViewById(R.id.linear);
+		linear.setOrientation(LinearLayout.VERTICAL);
+
+		//
+
+
+		for (int i = 0; i < 12; i++) {
+			View inflate = LayoutInflater.from(this).inflate(R.layout.item_test,null);
+
+
+			text = (TextView)  inflate.findViewById(R.id.text);
+
+			linHorizontal = (LinearLayout) inflate.findViewById(R.id.lin_horizontal);
+			for (int n = 0; n < 6; n++) {
+				View inflate2 = LayoutInflater.from(this).inflate(R.layout.item_test2, null);
+
+				imgHeader = (SimpleDraweeView) inflate2.findViewById(R.id.img_header);
+				textname = (TextView) inflate2.findViewById(R.id.textname);
+				imgHeader.setImageURI("http://static.lifemenu.net:8181/1/121.jpg");
+				linHorizontal.addView(inflate2);
+			}
+
+			linear.addView(inflate);
+
+		}
+
+	}
+	//纯代码写的
+	/*private void initView() {
 
 		linear = (LinearLayout) findViewById(R.id.linear);
 		linear.setOrientation(LinearLayout.VERTICAL);
@@ -79,9 +115,8 @@ public class MainActivity extends Activity {
 
 
 
-		/*linear.addView(img);
-		linear.addView(img);*/
-	}
+
+	}*/
 
 	/*private View createView2(String txt){
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
