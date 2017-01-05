@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.dontai_add_view.MainActivity">
 
-    <com.example.dontai_add_view.ElasticScrollView
+    <com.example.dontai_add_view.MyScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -17,5 +17,5 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
         </LinearLayout>
-    </com.example.dontai_add_view.ElasticScrollView>
+    </com.example.dontai_add_view.MyScrollView>
 </RelativeLayout>

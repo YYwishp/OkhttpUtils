@@ -21,6 +21,7 @@
             android:layout_marginRight="15dp"
             fresco:placeholderImage="@drawable/img_header"
             fresco:placeholderImageScaleType="fitCenter"
+            fresco:roundedCornerRadius="30dp"
             />
 
         <TextView

@@ -42,11 +42,9 @@ public class MainActivity extends Activity {
 
 		for (int i = 0; i < 12; i++) {
 			View inflate = LayoutInflater.from(this).inflate(R.layout.item_test,null);
-
-
 			text = (TextView)  inflate.findViewById(R.id.text);
-
 			linHorizontal = (LinearLayout) inflate.findViewById(R.id.lin_horizontal);
+
 			for (int n = 0; n < 6; n++) {
 				View inflate2 = LayoutInflater.from(this).inflate(R.layout.item_test2, null);
 
