@@ -1,12 +1,17 @@
 package com.example.view_dong_hua;
 
+import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.zip.Inflater;
 
@@ -14,11 +19,15 @@ public class MainActivity extends AppCompatActivity {
 
 	private ImageView map1;
 	private ImageView close;
+	private TextView text;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+
+		text = (TextView) findViewById(R.id.text);
 
 		/*map1 = (ImageView) findViewById(R.id.map1);
 
@@ -33,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});*/
 
-		View inflate = getLayoutInflater().inflate(R.layout.layout_test, null);
+		/*View inflate = getLayoutInflater().inflate(R.layout.layout_test, null);
 		map1 = (ImageView) inflate.findViewById(R.id.map1);
 		close = (ImageView) inflate.findViewById(R.id.close);
 		scale(map1);
@@ -45,7 +54,30 @@ public class MainActivity extends AppCompatActivity {
 
 			}
 		});
-		setContentView(inflate);
+		setContentView(inflate);*/
+		text.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final MyDialog myDialog = new MyDialog(MainActivity.this);
+				Window window = myDialog.getWindow();
+				//window.setGravity(Gravity.CENTER);
+				window.setWindowAnimations(R.style.mystyle);
+
+				myDialog.setOnMyDialogClickListener(new MyDialog.OnMyDialogClickListener() {
+					@Override
+					public void onClick() {
+						myDialog.dismiss();
+						final MyDialog myDialog1 = new MyDialog(MainActivity.this);
+						Window window = myDialog1.getWindow();
+						//window.setGravity(Gravity.CENTER);
+						window.setWindowAnimations(R.style.mystyle);
+						myDialog1.show();
+					}
+				});
+				myDialog.show();
+			}
+		});
+
 	}
 
 	/**
