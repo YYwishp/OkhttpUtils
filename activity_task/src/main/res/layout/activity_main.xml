@@ -22,4 +22,16 @@
         android:background="#ff0f"
         android:text="你好，沉浸式状态栏"/>
 
+
+    <CheckedTextView
+        android:id="@+id/checktextview"
+        android:paddingRight="20dp"
+
+        android:checkMark="@drawable/selector_checkbox_primaryserver"
+        android:paddingLeft="30dp"
+        android:gravity="center"
+        android:text="sdfsdfsd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
 </LinearLayout>
