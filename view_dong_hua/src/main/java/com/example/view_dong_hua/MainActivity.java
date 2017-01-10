@@ -3,6 +3,7 @@ package com.example.view_dong_hua;
 import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDialog;
 import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
@@ -15,11 +16,15 @@ import android.widget.TextView;
 
 import java.util.zip.Inflater;
 
+/**
+ * dialog动画
+ */
 public class MainActivity extends AppCompatActivity {
 
 	private ImageView map1;
 	private ImageView close;
 	private TextView text;
+	private MyDialog build;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,41 +33,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 		text = (TextView) findViewById(R.id.text);
-
-		/*map1 = (ImageView) findViewById(R.id.map1);
-
-		scale(map1);
-		map1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//ap1.setVisibility(View.GONE);
-				map1.setImageResource(R.drawable.map2);
-
-				scale(map1);
-			}
-		});*/
-
-		/*View inflate = getLayoutInflater().inflate(R.layout.layout_test, null);
-		map1 = (ImageView) inflate.findViewById(R.id.map1);
-		close = (ImageView) inflate.findViewById(R.id.close);
-		scale(map1);
-		map1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//ap1.setVisibility(View.GONE);
-				map1.setImageResource(R.drawable.map2);
-
-			}
-		});
-		setContentView(inflate);*/
 		text.setOnClickListener(new View.OnClickListener() {
+			private MyDialog build;
+
 			@Override
 			public void onClick(View v) {
-				final MyDialog myDialog = new MyDialog(MainActivity.this);
+				//方式1
+				/*final MyDialog myDialog = new MyDialog(MainActivity.this);
 				Window window = myDialog.getWindow();
 				//window.setGravity(Gravity.CENTER);
 				window.setWindowAnimations(R.style.mystyle);
-
+				//点击外部关闭dialog
+//				myDialog.setCanceledOnTouchOutside(true);
+				myDialog.setImage(R.drawable.map2);
 				myDialog.setOnMyDialogClickListener(new MyDialog.OnMyDialogClickListener() {
 					@Override
 					public void onClick() {
@@ -74,14 +57,48 @@ public class MainActivity extends AppCompatActivity {
 						myDialog1.show();
 					}
 				});
-				myDialog.show();
+				myDialog.show();*/
+				//方式2
+				build = new MyDialog.Builder(MainActivity.this)
+						.setImage(R.drawable.map1)
+						.setOnMyDialogClickListener(new MyDialog.Builder.OnMyDialogClickListener() {
+							@Override
+							public void onClick() {
+								build.dismiss();
+								showDialogint(R.drawable.map2);
+							}
+						})
+						.build();
+				build.show();
+
+//				build.getWindow().setWindowAnimations(R.style.mystyle);
 			}
 		});
 
+
+
 	}
 
+	public void showDialogint(int resource) {
+		build = new MyDialog.Builder(MainActivity.this)
+				.setImage(resource)
+				.setOnMyDialogClickListener(new MyDialog.Builder.OnMyDialogClickListener() {
+					@Override
+					public void onClick() {
+						build.dismiss();
+					}
+				})
+				.build();
+		build.show();
+	}
+
+
+
+
+
+
 	/**
-	 * 缩放动画
+	 * 缩放动画（view动画）
 	 */
 	public void scale(View view){
 		ScaleAnimation sa = new ScaleAnimation(0, 1, 0,1,
