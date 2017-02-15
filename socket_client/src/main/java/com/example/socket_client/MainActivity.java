@@ -1,24 +1,26 @@
 package com.example.socket_client;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
+import org.java_websocket.client.DefaultSSLWebSocketClientFactory;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.UnknownHostException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 public class MainActivity extends AppCompatActivity {
 	private Socket socket;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 	/**
 	 * 建立连接
+	 *
 	 * @param view
 	 */
 	public void connect(View view) {
@@ -67,33 +70,31 @@ public class MainActivity extends AppCompatActivity {
 				}
 			}
 		}.start();*/
-
 	}
 
 	private void receiveMessage(String message) {
-		Log.e("接收消息" , message);
+		Log.e("接收消息", message);
 	}
 
 	/**
 	 * 发送消息
+	 *
 	 * @param view
 	 */
 	public void send(View view) {
-		new Thread() {
+	/*	new Thread() {
 			@Override
 			public void run() {
-
 				try {
 					// socket.getInputStream()
 					DataOutputStream writer = new DataOutputStream(socket.getOutputStream());
 					writer.writeUTF("{type: 'login',data: {uid: 103}}");
-
-					Log.e("发送消息" , "发送消息");
+					Log.e("发送消息", "发送消息");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-		}.start();
+		}.start();*/
 	}
 
 	/*public void getMessage(final Socket socket) {
@@ -114,11 +115,38 @@ public class MainActivity extends AppCompatActivity {
 		}).start();
 
 	}*/
+	//===================================================================================
+	//这个方法只能在加密的时候调用ssl，不加密的时候不能调用，否则链接不上
+	public void trustAllHosts(WebSocketClient mWebSocketClient) {
+		// Create a trust manager that does not validate certificate chains
+		TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+			public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+				return new java.security.cert.X509Certificate[]{};
+			}
+
+			public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+			}
+
+			public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+			}
+		}};
+		// Install the all-trusting trust manager
+		try {
+			SSLContext sc = SSLContext.getInstance("TLS");
+			sc.init(null, trustAllCerts, new java.security.SecureRandom());
+			mWebSocketClient.setWebSocketFactory(new DefaultSSLWebSocketClientFactory(sc));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//======================================================================================
 
 	private void connectWebSocket() {
 		URI uri;
 		try {
-			uri = new URI("ws://api.lifemenu.net:8382");
+			//uri = new URI("ws://api.lifemenu.net:8382");
+//			uri = new URI("wss://ssl.91relax.com");
+			uri = new URI("ws://ssl.lifemenu.net");
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 			return;
@@ -127,10 +155,8 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onOpen(ServerHandshake serverHandshake) {
 				Log.e("Websocket", "打开");
-				//mWebSocketClient.send("{type: 'login',data: {uid: 103}}");
+				mWebSocketClient.send("{type: 'login',data: {uid: 103}}");
 			}
-
-
 
 			@Override
 			public void onMessage(String s) {
@@ -138,9 +164,9 @@ public class MainActivity extends AppCompatActivity {
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						Log.e("接收消息" , message);
+						Log.e("接收消息", message);
 						if ("{\"type\":\"ping\"}".equals(message)) {
-							Log.e("发送消息","1");
+							Log.e("发送消息", "1");
 							mWebSocketClient.send("1");
 						}
 					}
@@ -157,9 +183,8 @@ public class MainActivity extends AppCompatActivity {
 				Log.e("Websocket", "错误 " + e.getMessage());
 			}
 		};
+		//trustAllHosts(mWebSocketClient);
 		mWebSocketClient.connect();
-
-
 	}
 }
 
