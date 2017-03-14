@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,20 +11,21 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto">
 
     <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_centerInParent="true"
         android:layout_weight="1"
         android:id="@+id/img_header"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="144dp"
+        android:layout_height="107dp"
         fresco:placeholderImage="@drawable/img_header"
         fresco:placeholderImageScaleType="fitCenter"
 
         />
 
     <Button
-
+android:layout_alignParentBottom="true"
         android:text="加载"
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-</LinearLayout>
+</RelativeLayout>

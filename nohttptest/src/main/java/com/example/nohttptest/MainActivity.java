@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 	private void load() {
 		RequestQueue requestQueue = NoHttp.newRequestQueue();
-		Request<Bitmap> request = NoHttp.createImageRequest("http://static.lifemenu.net:8181/1/123.jpg", RequestMethod.GET);
+		Request<Bitmap> request = NoHttp.createImageRequest("http://www.lifemenu.net/images/city_job_icon/154.png", RequestMethod.GET);
 		// 发起请求
 		requestQueue.add(0, request, new OnResponseListener<Bitmap>() {
 
