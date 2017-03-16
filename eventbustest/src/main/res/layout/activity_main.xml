@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.eventbustest.MainActivity">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        />
+
+    <Button
+        android:id="@+id/button_send"
+        android:text="发送消息给第二界面"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="150dp"
+        android:layout_height="101dp"
+        android:text="第二界面"
+        />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="152dp"
+        android:layout_height="94dp"
+        android:text="第三界面"
+        />
+</LinearLayout>
