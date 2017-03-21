@@ -1,5 +1,7 @@
 package com.gyx.test;
 
+import android.provider.ContactsContract;
+import android.support.annotation.BoolRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +38,16 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
+
+		String test = "{\"service_sn\":\"sdfklgnkadfnjksdnfjk\",\"mobile\":\"\",\"wechat\":\"\",\"agree\":\"null\"}";
+		ChatBean chatBean = Convert.fromJson(test, ChatBean.class);
+		String agree = chatBean.getAgree();
+		Boolean aBoolean = Boolean.valueOf(agree);
+		if (aBoolean) {
+			Toast.makeText(this, agree, Toast.LENGTH_SHORT).show();
+		} else {
+
+		}
 
 	}
 
