@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
 		super.onDestroy();
 		//在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
 		bmapView.onDestroy();
+		mLocationClient.stop();
 	}
 
 	@Override
