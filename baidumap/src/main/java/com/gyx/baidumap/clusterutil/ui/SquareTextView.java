@@ -9,7 +9,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-public class SquareTextView extends TextView {
+public class SquareTextView extends android.support.v7.widget.AppCompatTextView {
     private int mOffsetTop = 0;
     private int mOffsetLeft = 0;
 

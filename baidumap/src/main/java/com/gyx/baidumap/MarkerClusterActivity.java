@@ -125,7 +125,7 @@ public class MarkerClusterActivity extends AppCompatActivity implements BaiduMap
 		LatLngBounds latLngBounds = builder.build();
 
 //        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newLatLngBounds(latLngBounds));
-		mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newLatLngZoom(latLngBounds.getCenter(),6));
+		mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newLatLngZoom(latLngBounds.getCenter(),8));
 		//mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLngBounds(latLngBounds));
 
 	}

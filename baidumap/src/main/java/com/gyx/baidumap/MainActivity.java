@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 			sb.append(location.getTime());    //获取定位时间
 
 			sb.append("\nerror code 错误码: ");
-			sb.append(location.getLocType());    //获取定位返回错误码
+			sb.append(location.getLocType());    //获取定位返回错误码 161是网络定位成功
 
 			sb.append("\nlatitude 纬度: ");
 			sb.append(location.getLatitude());    //获取纬度信息
