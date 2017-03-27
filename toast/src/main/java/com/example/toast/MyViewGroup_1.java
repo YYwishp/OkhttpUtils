@@ -30,17 +30,42 @@ public class MyViewGroup_1 extends FrameLayout {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		Log.e("-----","ViewGroup_1-----onTouchEvent---触摸");
+		switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				if (true) {
+					Log.e("手指放下","手指放下");
+					return true;
+
+				}
+
+				break;
+			case MotionEvent.ACTION_MOVE:
+				if (true) {
+					Log.e("手指移动","手指移动");
+					return false;
+
+				}
+				break;
+			case MotionEvent.ACTION_UP:
+				if (true) {
+					Log.e("抬起","抬起");
+//					return true;
+
+				}
+				break;
+
+		}
 
 
-
+		//return true;
 		return super.onTouchEvent(event);
 	}
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		Log.e("-----","ViewGroup_1-----onInterceptTouchEvent---拦截");
-		//return super.onInterceptTouchEvent(ev);
-		return true;
+		return super.onInterceptTouchEvent(ev);
+		//return true;
 	}
 
 	@Override

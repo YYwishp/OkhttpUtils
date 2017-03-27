@@ -105,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
 		//注册监听函数
 		initLocation();
 		mLocationClient.start();
+
+
+
 		text = (TextView) findViewById(R.id.text);
 		text.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -121,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
 		//在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
 		bmapView.onDestroy();
 		mLocationClient.stop();
+		mBaiduMap.setMyLocationEnabled(false);
+		bmapView = null;
 	}
 
 	@Override

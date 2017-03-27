@@ -19,6 +19,9 @@ import com.gyx.baidumap.clusterutil.clustering.ClusterManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 聚合坐标点
+ */
 public class MarkerClusterActivity extends AppCompatActivity implements BaiduMap.OnMapLoadedCallback {
 
 	private MapView mMapView;
