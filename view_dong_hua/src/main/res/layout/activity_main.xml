@@ -23,4 +23,13 @@
       android:layout_height="wrap_content"/>
 
 
+
+  <ImageView
+      android:id="@+id/map1"
+      android:src="@drawable/map1"
+      android:layout_alignParentRight="true"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+
 </RelativeLayout>

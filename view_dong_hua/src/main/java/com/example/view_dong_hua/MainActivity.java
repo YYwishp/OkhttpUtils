@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,16 +22,16 @@ import java.util.zip.Inflater;
  */
 public class MainActivity extends AppCompatActivity {
 
-	private ImageView map1;
+	//private ImageView map1;
 	private ImageView close;
 	private TextView text;
 	private MyDialog build;
-
+	private ImageView map1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		map1 = (ImageView) findViewById(R.id.map1);
 
 		text = (TextView) findViewById(R.id.text);
 		text.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 				});
 				myDialog.show();*/
 				//方式2
-				build = new MyDialog.Builder(MainActivity.this)
+				/*build = new MyDialog.Builder(MainActivity.this)
 						.setImage(R.drawable.map1)
 						.setOnMyDialogClickListener(new MyDialog.Builder.OnMyDialogClickListener() {
 							@Override
@@ -69,11 +70,23 @@ public class MainActivity extends AppCompatActivity {
 							}
 						})
 						.build();
-				build.show();
+				build.show();*/
 
 //				build.getWindow().setWindowAnimations(R.style.mystyle);
+
+
 			}
 		});
+
+
+
+		map1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				trans(map1);
+			}
+		});
+
 
 
 
@@ -110,5 +123,10 @@ public class MainActivity extends AppCompatActivity {
 		//设置重复播放的模式
 		//让iv播放aa动画
 		view.startAnimation(sa);
+	}
+
+	public void trans(View view){
+		Animation ta = AnimationUtils.loadAnimation(this, R.anim.trans_demo);
+		view.startAnimation(ta);
 	}
 }
