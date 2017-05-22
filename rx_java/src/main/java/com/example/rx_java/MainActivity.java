@@ -8,8 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -88,8 +95,10 @@ public class MainActivity extends AppCompatActivity {
 		int posDot = str.indexOf(".");
 		Toast.makeText(this, "点是第几位"+posDot+"长度是"+str.length(), Toast.LENGTH_LONG).show();*/
 //		doRxJava();
-		doRxjava2();
-		handler = new Handler(new Handler.Callback() {
+//		doRxjava2();
+//		doRxJavaFlowable();
+		doRxjavaTest();
+		/*handler = new Handler(new Handler.Callback() {
 			@Override
 			public boolean handleMessage(Message msg) {
 				String obj = (String) msg.obj;
@@ -122,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 				Log.e(TAG, "发送消息，当前线程是---" + Thread.currentThread().getName());
 				//myHandler.sendEmptyMessage(1);
 			}
-		}).start();
+		}).start();*/
 
 
 
@@ -137,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 				Log.e(TAG, "emitter 1");
 				for (int i = 0;; i++) {
 					emitter.onNext(i);
-					Thread.sleep(2000);  //每次发送完事件延时2秒
+					//Thread.sleep(2000);  //每次发送完事件延时2秒
 				}
 
 			}
@@ -155,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 					@Override
 					public void accept(Integer integer) throws Exception {
 						Log.e(TAG, "" + integer);
+						Thread.sleep(2000);
 					}
 				});
 	}
@@ -197,6 +207,76 @@ public class MainActivity extends AppCompatActivity {
 
 			}
 		});
+	}
+
+	public void doRxJavaFlowable() {
+		Flowable.create(new FlowableOnSubscribe<Integer>() {
+
+			@Override
+			public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+				for (int i = 0;; i++) {
+					Log.e(TAG, "emit " + i);
+					emitter.onNext(i);
+				}
+			}
+		}, BackpressureStrategy.BUFFER).subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new Subscriber<Integer>() {
+					@Override
+					public void onSubscribe(Subscription s) {
+						Log.e(TAG, "onSubscribe");
+
+					}
+
+					@Override
+					public void onNext(Integer integer) {
+						Log.e(TAG, "onNext: " + integer);
+					}
+
+					@Override
+					public void onError(Throwable t) {
+						Log.e(TAG, "onError: ", t);
+					}
+
+					@Override
+					public void onComplete() {
+						Log.e(TAG, "onComplete");
+					}
+				});
+	}
+
+	public void doRxjavaTest() {
+		Flowable.interval(1, TimeUnit.MICROSECONDS)
+				.onBackpressureDrop()  //加上背压策略
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new Subscriber<Long>() {
+					@Override
+					public void onSubscribe(Subscription s) {
+						Log.e(TAG, "onSubscribe");
+//						mSubscription = s;
+						s.request(Long.MAX_VALUE);
+					}
+
+					@Override
+					public void onNext(Long aLong) {
+						Log.e(TAG, "onNext: " + aLong);
+						try {
+							Thread.sleep(1000);  //延时1秒
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+
+					@Override
+					public void onError(Throwable t) {
+						Log.e(TAG, "onError: ", t);
+					}
+
+					@Override
+					public void onComplete() {
+						Log.e(TAG, "onComplete");
+					}
+				});
 	}
 }
 

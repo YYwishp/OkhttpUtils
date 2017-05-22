@@ -9,22 +9,18 @@
     tools:context="com.example.view_dong_hua.MainActivity">
   <TextView
       android:id="@+id/text"
-      android:text="sdfsdfsdfsdsdfsdfsdfs哈是滴哦粉红丝
-      带凤凰撒旦法卡斯卡警方还哦司法所发生的健康法哈斯的尽快发货
-      就卡死的房间库哈斯数据库的恢复空间撒旦恢复健康哈送健康的凤凰卡时间
-      段和房价快速的回复将快速的回复可见蝴蝶结客观上健康的恢复健康十分健康四大
-      行健康的凤凰刚看见对方韩国进口和第三方空间更合适的健康法韩国进口的身份韩国
-      将快速的反抗军供货商的健康更好的房价快速更健康上地方三等奖开发规划将快速的返
-      回给空间上地方韩国进口商的恢复规划上东方健康更合适的房间开工和健康上地方和改
-      扩建的发生健康第三方韩国进口的伙食费供货商的空间规划上空间规划是看得见更何况
-      三等奖各灰色空间供货商的健康法规和
-      fsdfas"
+      android:layout_marginLeft="100dp"
+
+      android:text="那覅刚拿了你过奖了你那件好几个哈脚后跟阿斯顿飞金沙的减肥是看得见"
+      android:gravity="right"
+      android:maxLines="1"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
 
 
 
   <ImageView
+      android:visibility="gone"
       android:id="@+id/map1"
       android:src="@drawable/map1"
       android:layout_alignParentRight="true"

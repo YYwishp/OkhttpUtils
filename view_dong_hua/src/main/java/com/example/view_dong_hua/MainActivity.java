@@ -4,7 +4,10 @@ import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialog;
+import android.text.Editable;
 import android.text.Layout;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.zip.Inflater;
 
@@ -34,6 +38,52 @@ public class MainActivity extends AppCompatActivity {
 		map1 = (ImageView) findViewById(R.id.map1);
 
 		text = (TextView) findViewById(R.id.text);
+		//ext.setText("阿斯顿上多发水电费撒旦法是打发斯蒂芬三大上第发四谛法四谛法四谛法是的发上多发水电费撒旦法上的圣达菲四谛法四谛法四谛法是的发");
+		text.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+			@Override
+			public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+				Layout layout = text.getLayout();
+				int width = layout.getWidth();
+				int lineCount = layout.getLineCount();
+
+				if (lineCount > 1) {
+					String trim = text.getText().toString().trim();
+					int lineStart = layout.getLineStart(1);
+					Log.e("第一行文字个数", lineStart + "");
+					String substring = trim.substring(0, lineStart-3);
+					text.setText(substring+"...");
+				}
+
+				/*Log.e("宽度", width + "");
+				Log.e("行数", lineCount + "");
+				int old_len = oldRight - oldLeft;
+				int now_len = right - left;
+				Log.e("测试", "old_len:" + old_len + "now_len:" + now_len);*/
+
+
+
+
+			}
+		});
+
+
+		text.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				int lineCount = text.getLineCount();
+				Log.e("有几行", lineCount + "");
+
+			}
+		});
 		text.setOnClickListener(new View.OnClickListener() {
 			private MyDialog build;
 
