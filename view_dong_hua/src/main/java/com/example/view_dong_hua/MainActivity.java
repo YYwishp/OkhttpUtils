@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
 				Layout layout = text.getLayout();
-				int width = layout.getWidth();
 				int lineCount = layout.getLineCount();
 
 				if (lineCount > 1) {

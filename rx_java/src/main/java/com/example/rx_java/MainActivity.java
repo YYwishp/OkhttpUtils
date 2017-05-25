@@ -11,6 +11,7 @@ import android.widget.Toast;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.security.PrivateKey;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
@@ -94,10 +95,11 @@ public class MainActivity extends AppCompatActivity {
 	/*	String str = "100.00";
 		int posDot = str.indexOf(".");
 		Toast.makeText(this, "点是第几位"+posDot+"长度是"+str.length(), Toast.LENGTH_LONG).show();*/
-//		doRxJava();
+		String s = doRxJava();
+		Log.e("异步回调用", s+"qqqqq");
 //		doRxjava2();
 //		doRxJavaFlowable();
-		doRxjavaTest();
+//		doRxjavaTest();
 		/*handler = new Handler(new Handler.Callback() {
 			@Override
 			public boolean handleMessage(Message msg) {
@@ -138,16 +140,18 @@ public class MainActivity extends AppCompatActivity {
 
 	}
 
-	public void doRxJava() {
+	public String doRxJava() {
+		final String[] str = new String[1];
 		Observable.create(new ObservableOnSubscribe<Integer>() {
 			@Override
 			public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
 				Log.e(TAG, "Observable thread is : " + Thread.currentThread().getName());
 				Log.e(TAG, "emitter 1");
-				for (int i = 0;; i++) {
+				/*for (int i = 0;; i++) {
 					emitter.onNext(i);
 					//Thread.sleep(2000);  //每次发送完事件延时2秒
-				}
+				}*/
+				emitter.onNext(1);
 
 			}
 		}).subscribeOn(Schedulers.io())
@@ -164,9 +168,14 @@ public class MainActivity extends AppCompatActivity {
 					@Override
 					public void accept(Integer integer) throws Exception {
 						Log.e(TAG, "" + integer);
-						Thread.sleep(2000);
+						//Thread.sleep(2000);
+						str[0] = "asdjkfsdf";
+
 					}
 				});
+		return str[0];
+
+
 	}
 
 	public void doRxjava2() {
