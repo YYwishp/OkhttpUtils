@@ -95,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
 	/*	String str = "100.00";
 		int posDot = str.indexOf(".");
 		Toast.makeText(this, "点是第几位"+posDot+"长度是"+str.length(), Toast.LENGTH_LONG).show();*/
-		String s = doRxJava();
-		Log.e("异步回调用", s+"qqqqq");
-//		doRxjava2();
+//		String s = doRxJava();
+//		Log.e("异步回调用", s+"qqqqq");
+		doRxjava2();
 //		doRxJavaFlowable();
 //		doRxjavaTest();
 		/*handler = new Handler(new Handler.Callback() {
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
 				for (int i = 0; ; i++) {
-					emitter.onNext(i);
+					emitter.onNext(null);
 					Log.e(TAG, "emitter"+i);
 					Thread.sleep(2000);  //发送事件之后延时2秒
 				}
@@ -193,9 +193,9 @@ public class MainActivity extends AppCompatActivity {
 		Observable<String> observable2 = Observable.create(new ObservableOnSubscribe<String>() {
 			@Override
 			public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-				emitter.onNext("A");
-				emitter.onNext("B");
-				emitter.onNext("C");
+				emitter.onNext(null);
+				/*emitter.onNext("B");
+				emitter.onNext("C");*/
 			}
 		}).subscribeOn(Schedulers.io());
 
