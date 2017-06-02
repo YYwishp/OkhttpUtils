@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:context="com.example.refresh_module.MainActivity">
+    <Button
+        android:id="@+id/bt_listview"
+        android:layout_marginTop="30dp"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="listview刷新"
+        android:background="#9090"
+        />
+    <Button
+        android:id="@+id/bt_recyclerview"
+        android:layout_marginTop="30dp"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="recyclerview刷新"
+        android:background="#489"
+        />
+</LinearLayout>
