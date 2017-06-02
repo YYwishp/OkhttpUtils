@@ -22,6 +22,8 @@ public class ListViewActivity extends AppCompatActivity {
 
 
 		initView();
+
+
 	}
 
 	private void initView() {
