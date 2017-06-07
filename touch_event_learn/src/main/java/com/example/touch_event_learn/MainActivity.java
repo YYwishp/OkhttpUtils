@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
-	private ViewPager viewpager;
+	private MyViewPager viewpager;
 	private SlidingTabLayout intestTab;
 	private final String[] mTitles = new String[]{"我的需求", "我的订单","fsdfsdf"};
 	@Override
@@ -30,7 +30,7 @@ public class MainActivity extends FragmentActivity {
 	private void initView() {
 
 
-		viewpager = (ViewPager) findViewById(R.id.viewpager);
+		viewpager = (MyViewPager) findViewById(R.id.viewpager);
 		intestTab = (SlidingTabLayout) findViewById(R.id.intest_tab);
 
 		List<Fragment> fragments= new ArrayList<Fragment>();
@@ -42,7 +42,7 @@ public class MainActivity extends FragmentActivity {
 		viewpager.setAdapter(adapter);
 		viewpager.setOffscreenPageLimit(2);
 		//tab设置viewpager
-		//intestTab.setViewPager(viewpager, mTitles);
+		intestTab.setViewPager(viewpager, mTitles);
 
 	}
 

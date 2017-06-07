@@ -35,11 +35,13 @@ import java.util.List;
  * Created by GYX on 2017/6/7.
  */
 public class Fragment_1 extends Fragment {
-	private TwinklingRefreshLayout refresh;
+	private SuperSwipeRefreshLayout refresh;
 	private SwipeMenuRecyclerView recyclerView;
 
 	private ArrayList<String> list;
 	private MyAdapter myAdapter;
+	private MenuAdapter mMenuAdapter;
+	
 	int n;
 
 	@Nullable
@@ -48,24 +50,25 @@ public class Fragment_1 extends Fragment {
 		View inflate = inflater.inflate(R.layout.fragment_1,container,false);
 
 
-		//refresh = (TwinklingRefreshLayout) inflate.findViewById(R.id.refresh);
+//		refresh = (SuperSwipeRefreshLayout) inflate.findViewById(R.id.refresh);
 
 		recyclerView = (SwipeMenuRecyclerView) inflate.findViewById(R.id.recycler_view);
-		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));// 布局管理器。
-		recyclerView.setHasFixedSize(true);// 如果Item够简单，高度是确定的，打开FixSize将提高性能。
-		recyclerView.setItemAnimator(new DefaultItemAnimator());// 设置Item默认动画，加也行，不加也行。
-		recyclerView.setFocusable(false);
-		recyclerView.setEnabled(false);
+		
+		
 		list = new ArrayList<>();
 		for (int i = 0; i <40; i++) {
 
 			list.add("1111111");
 		}
 		myAdapter = new MyAdapter(getContext(),list);
-		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-		recyclerView.setAdapter(myAdapter);
+		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));// 布局管理器。
+		recyclerView.setHasFixedSize(true);// 如果Item够简单，高度是确定的，打开FixSize将提高性能。
+		recyclerView.setItemAnimator(new DefaultItemAnimator());// 设置Item默认动画，加也行，不加也行。
+		
 		recyclerView.setSwipeMenuCreator(swipeMenuCreator);
-		recyclerView.setSwipeMenuItemClickListener(menuItemClickListener);
+		mMenuAdapter = new MenuAdapter(list);
+		recyclerView.setAdapter(mMenuAdapter);
+		
 		//刷新头
 		/*SinaRefreshView headerView = new SinaRefreshView(getContext());
 		refresh.setHeaderView(headerView);
@@ -118,10 +121,7 @@ public class Fragment_1 extends Fragment {
 		return inflate;
 
 	}
-	@Override
-	public void setMenuVisibility(boolean menuVisible) {
-		//super.setMenuVisibility(menuVisible);
-	}
+	
 	/**
 	 * 菜单点击监听。
 	 */
@@ -152,8 +152,8 @@ public class Fragment_1 extends Fragment {
 	private SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {
 		@Override
 		public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
-			int width = UIUtils.getResources().getDimensionPixelSize(R.dimen.item_width);
-			int size = UIUtils.getResources().getDimensionPixelSize(R.dimen.item_menu_text_size);
+			int width = getResources().getDimensionPixelSize(R.dimen.item_width);
+			int size = getResources().getDimensionPixelSize(R.dimen.item_menu_text_size);
 			// MATCH_PARENT 自适应高度，保持和内容一样高；也可以指定菜单具体高度，也可以用WRAP_CONTENT。
 			int height = ViewGroup.LayoutParams.MATCH_PARENT;
 			// 添加右侧的，如果不添加，则右侧不会出现菜单。
@@ -177,17 +177,14 @@ public class Fragment_1 extends Fragment {
 		private Context mContext;
 		private List<String> mDatas;
 		public MyAdapter(Context context, List<String> datas) {
-
 			this.mDatas = datas;
 			this.mContext = context;
 			mInflate = LayoutInflater.from(context);
-
-
 		}
 
 		@Override
 		public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-			View view = mInflate.inflate(R.layout.item_recycler, parent, false);
+			View view = mInflate.inflate(R.layout.item, parent, false);
 
 			MyViewHolder myViewHolder = new MyViewHolder(view);
 			return myViewHolder;
@@ -212,7 +209,7 @@ public class Fragment_1 extends Fragment {
 
 		public MyViewHolder(View itemView) {
 			super(itemView);
-			textview = (TextView) itemView.findViewById(R.id.tv);
+			textview = (TextView) itemView.findViewById(R.id.tv_title);
 
 		}
 	}

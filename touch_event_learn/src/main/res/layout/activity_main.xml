@@ -21,9 +21,9 @@
         tl:tl_textsize="16sp"
         tl:tl_underline_color="#00f"
         tl:tl_underline_height="1px"/>
-    <android.support.v4.view.ViewPager
+    <com.example.touch_event_learn.MyViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
+    </com.example.touch_event_learn.MyViewPager>
 </LinearLayout>
