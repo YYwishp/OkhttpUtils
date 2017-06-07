@@ -1,12 +1,14 @@
 package com.example.refresh_module;
 
+import android.content.Context;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -15,30 +17,27 @@ import com.lcodecore.tkrefreshlayout.footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ListViewActivity extends AppCompatActivity {
-	private TwinklingRefreshLayout refresh;
-	private ListView listview;
+public class RecyclerViewActivity extends AppCompatActivity {
 	private ArrayList<String> list;
+	private TwinklingRefreshLayout refresh;
+	private RecyclerView recyclerview;
+	private MyAdapter myAdapter;
 	private int n=0;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_list_view);
-
+		setContentView(R.layout.activity_recycler_view);
 
 
 		initView();
-
-
 	}
 
 	private void initView() {
 
-
 		refresh = (TwinklingRefreshLayout) findViewById(R.id.refresh);
-		listview = (ListView) findViewById(R.id.listview);
+		recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
 		//刷新头
 		SinaRefreshView headerView = new SinaRefreshView(this);
 		refresh.setHeaderView(headerView);
@@ -53,11 +52,14 @@ public class ListViewActivity extends AppCompatActivity {
 			list.add(i + "-------");
 
 		}
-		final MyAdapter myAdapter = new MyAdapter();
-		listview.setAdapter(myAdapter);
+		myAdapter = new MyAdapter(this, list);
+		recyclerview.setLayoutManager(new LinearLayoutManager(this));
+		recyclerview.setAdapter(myAdapter);
+
 		refresh.setOnRefreshListener(new RefreshListenerAdapter() {
 			@Override
 			public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+				super.onRefresh(refreshLayout);
 				new Handler().postDelayed(new Runnable() {
 					@Override
 					public void run() {
@@ -70,7 +72,6 @@ public class ListViewActivity extends AppCompatActivity {
 						refresh.finishRefreshing();
 					}
 				}, 2000);
-
 
 
 
@@ -89,41 +90,56 @@ public class ListViewActivity extends AppCompatActivity {
 
 				myAdapter.notifyDataSetChanged();
 				refresh.finishLoadmore();
-
 			}
 		});
+
+
+
 	}
 
 
+	class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+		private final LayoutInflater mInflate;
+		private  Context mContext;
+		private  List<String> mDatas;
+		public MyAdapter(Context context, List<String> datas) {
+
+			this.mDatas = datas;
+			this.mContext = context;
+			mInflate = LayoutInflater.from(context);
 
 
-
-
-	class MyAdapter extends BaseAdapter{
-		private TextView text;
-		@Override
-		public int getCount() {
-			return list.size();
 		}
 
 		@Override
-		public Object getItem(int position) {
-			return list.get(position);
+		public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+			View view = mInflate.inflate(R.layout.item_recycler, parent, false);
+
+			MyViewHolder myViewHolder = new MyViewHolder(view);
+			return myViewHolder;
+
+
 		}
 
 		@Override
-		public long getItemId(int position) {
-			return position;
+		public void onBindViewHolder(MyViewHolder holder, int position) {
+			holder.textview.setText(mDatas.get(position));
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View inflate = View.inflate(ListViewActivity.this, R.layout.item_list, null);
+		public int getItemCount() {
+			return mDatas.size();
+		}
+	}
 
+	class MyViewHolder extends RecyclerView.ViewHolder {
 
-			text = (TextView) inflate.findViewById(R.id.text);
-			text.setText(list.get(position));
-			return inflate;
+		TextView textview;
+
+		public MyViewHolder(View itemView) {
+			super(itemView);
+			textview = (TextView) itemView.findViewById(R.id.tv);
+
 		}
 	}
 }
