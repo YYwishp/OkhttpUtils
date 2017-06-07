@@ -6,15 +6,15 @@
     android:background="#0f0"
     android:orientation="vertical">
 
-   <!-- <com.example.touch_event_learn.SuperSwipeRefreshLayout
+    <com.example.touch_event_learn.SuperSwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">-->
+        android:layout_height="match_parent">
 
         <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
-    <!--</com.example.touch_event_learn.SuperSwipeRefreshLayout>-->
+    </com.example.touch_event_learn.SuperSwipeRefreshLayout>
 </LinearLayout>

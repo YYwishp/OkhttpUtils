@@ -50,7 +50,7 @@ public class Fragment_1 extends Fragment {
 		View inflate = inflater.inflate(R.layout.fragment_1,container,false);
 
 
-//		refresh = (SuperSwipeRefreshLayout) inflate.findViewById(R.id.refresh);
+		refresh = (SuperSwipeRefreshLayout) inflate.findViewById(R.id.refresh);
 
 		recyclerView = (SwipeMenuRecyclerView) inflate.findViewById(R.id.recycler_view);
 		
