@@ -1,7 +1,5 @@
 package com.gyx.test;
 
-import android.provider.ContactsContract;
-import android.support.annotation.BoolRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
