@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Fragment_1 extends Fragment {
 	private SuperSwipeRefreshLayout refresh;
-	private SwipeMenuRecyclerView recyclerView;
+	private MyRecyclerView recyclerView;
 
 	private ArrayList<String> list;
 	private MyAdapter myAdapter;
@@ -52,7 +52,7 @@ public class Fragment_1 extends Fragment {
 
 		refresh = (SuperSwipeRefreshLayout) inflate.findViewById(R.id.refresh);
 
-		recyclerView = (SwipeMenuRecyclerView) inflate.findViewById(R.id.recycler_view);
+		recyclerView = (MyRecyclerView) inflate.findViewById(R.id.recycler_view);
 		
 		
 		list = new ArrayList<>();
@@ -65,9 +65,9 @@ public class Fragment_1 extends Fragment {
 		recyclerView.setHasFixedSize(true);// 如果Item够简单，高度是确定的，打开FixSize将提高性能。
 		recyclerView.setItemAnimator(new DefaultItemAnimator());// 设置Item默认动画，加也行，不加也行。
 		
-		recyclerView.setSwipeMenuCreator(swipeMenuCreator);
+		/*recyclerView.setSwipeMenuCreator(swipeMenuCreator);*/
 		mMenuAdapter = new MenuAdapter(list);
-		recyclerView.setAdapter(mMenuAdapter);
+		recyclerView.setAdapter(myAdapter);
 		
 		//刷新头
 		/*SinaRefreshView headerView = new SinaRefreshView(getContext());

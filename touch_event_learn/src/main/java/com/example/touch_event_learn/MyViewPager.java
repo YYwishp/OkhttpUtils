@@ -20,15 +20,18 @@ public class MyViewPager extends ViewPager {
 	
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		Log.e("MyViewPager", "onInterceptTouchEvent"+ev.getActionMasked());
+		/*Log.e("MyViewPager", "onInterceptTouchEvent"+ev.getActionMasked());
 		switch (ev.getActionMasked()) {
 			case MotionEvent.ACTION_DOWN:
+				Log.e("MyViewPager", "按下");
 				break;
 			case MotionEvent.ACTION_HOVER_MOVE:
+				Log.e("MyViewPager", "移动");
 				break;
 			case MotionEvent.ACTION_UP:
+				Log.e("MyViewPager", "抬起");
 				break;
-		}
+		}*/
 		return super.onInterceptTouchEvent(ev);
 		
 //		return false;
@@ -37,7 +40,7 @@ public class MyViewPager extends ViewPager {
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		
-		Log.e("MyViewPager", "onTouchEvent"+ev.getActionMasked());
+//		Log.e("MyViewPager", "onTouchEvent"+ev.getActionMasked());
 		return super.onTouchEvent(ev);
 		
 		
