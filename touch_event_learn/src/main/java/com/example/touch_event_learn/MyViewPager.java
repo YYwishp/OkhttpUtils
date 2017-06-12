@@ -32,19 +32,19 @@ public class MyViewPager extends ViewPager {
 				Log.e("MyViewPager", "抬起");
 				break;
 		}*/
-		return super.onInterceptTouchEvent(ev);
+//		return super.onInterceptTouchEvent(ev);
 		
-//		return false;
+		return false;
 	}
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		
 //		Log.e("MyViewPager", "onTouchEvent"+ev.getActionMasked());
-		return super.onTouchEvent(ev);
+//		return super.onTouchEvent(ev);
 		
 		
-//		return false;
+		return false;
 	}
 	
 }

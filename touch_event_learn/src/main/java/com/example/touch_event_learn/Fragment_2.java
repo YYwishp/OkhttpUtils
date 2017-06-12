@@ -62,7 +62,7 @@ public class Fragment_2 extends Fragment {
 		//没有侧滑菜单，就用自己的adapter，这样就可以和viewpager一样滑动
 		myAdapter = new MyAdapter(getContext(), mStrings);
 //		mMenuAdapter.setOnItemClickListener(onItemClickListener);
-		recyclerView.setAdapter(myAdapter);
+		recyclerView.setAdapter(mMenuAdapter);
 		return inflate;
 
 	}

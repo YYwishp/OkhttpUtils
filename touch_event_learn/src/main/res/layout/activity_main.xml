@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
 
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/intest_tab"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="#900"
-        tl:tl_divider_color="#bcbcbc"
-        tl:tl_divider_width="1dp"
-        tl:tl_indicator_color="#f0f"
-        tl:tl_indicator_height="2dp"
-        tl:tl_tab_space_equal="true"
-        tl:tl_textSelectColor="#0f0"
-        tl:tl_textUnselectColor="#333"
-        tl:tl_textsize="16sp"
-        tl:tl_underline_color="#00f"
-        tl:tl_underline_height="1px"/>
-    <Button
-        android:textSize="30sp"
-        android:id="@+id/button"
-        android:text="开启新的activity"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/intest_tab"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="#900"
+            tl:tl_divider_color="#bcbcbc"
+            tl:tl_divider_width="1dp"
+            tl:tl_indicator_color="#f0f"
+            tl:tl_indicator_height="2dp"
+            tl:tl_tab_space_equal="true"
+            tl:tl_textSelectColor="#0f0"
+            tl:tl_textUnselectColor="#333"
+            tl:tl_textsize="16sp"
+            tl:tl_underline_color="#00f"
+            tl:tl_underline_height="1px"/>
 
-    <com.example.touch_event_learn.MyViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.example.touch_event_learn.MyViewPager>
-</LinearLayout>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="开启新的activity"
+            android:textSize="30sp"/>
+
+        <com.example.touch_event_learn.MyViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.example.touch_event_learn.MyViewPager>
+    </LinearLayout>
+
+    <include
+        layout="@layout/include_left_menu"
+        android:layout_width="260dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"/>
+</android.support.v4.widget.DrawerLayout>

@@ -481,6 +481,14 @@ public class TwinklingRefreshLayout extends RelativeLayout implements PullListen
                         dy += mTouchSlop;
                     }
                 }
+                //===============横向让父类拦截，就走父类的ontouch方法==================
+                if (Math.abs(dx) > mTouchSlop) {
+                    final ViewParent parent = getParent();
+                    if (parent != null) {
+                        parent.requestDisallowInterceptTouchEvent(false);
+                    }
+                }
+                //==========================================
 
                 if (mIsBeingDragged) {
                     mLastTouchY = y - mScrollOffset[1];
