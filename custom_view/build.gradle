@@ -14,6 +14,24 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
+    //签名配置
+    signingConfigs {
+
+        release {
+            storeFile file("relax.jks")
+            storePassword "47469dd95629ae1a881ac0c7a36451e3"
+            keyAlias "relax"
+            keyPassword "47469dd95629ae1a881ac0c7a36451e3"
+        }
+
+        debug {
+            storeFile file("relax.jks")
+            storePassword "47469dd95629ae1a881ac0c7a36451e3"
+            keyAlias "relax"
+            keyPassword "47469dd95629ae1a881ac0c7a36451e3"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.custom_view.activity.LineAndTextActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.example.custom_view.view.MyDrawPathLineView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+
+            <com.example.custom_view.view.MyDrawRectView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#aff"
+                android:text="问：从效果图中，看不出顺时针生成和逆时针生成的任何区别，怎么会没区别呢？
+答：当然没区别啦，无论正时针还是逆时针，仅仅是生成方式不同而已，矩形就那么大画出来的路径矩形当然与矩形一样大了。"
+                android:textColor="#000"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#dd0"
+                android:text="问：那生成方式有什么区别呢？
+答：生成方式的区别在于，依据生成方向排版的文字！后面我们会讲到文字，文字是可以依据路径排版的，那文字的行走方向就是依据路径的生成方向；"
+                android:textColor="#000"/>
+            <com.example.custom_view.view.MyDrawTextOnPathView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

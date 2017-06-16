@@ -1,17 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/framelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.custom_view.MainActivity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-</android.support.constraint.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:background="#f0f"
+                android:id="@+id/bt_base_geometric"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1，基本几何图形绘制"/>
+
+            <Button
+                android:background="#89f"
+                android:id="@+id/bt_line_and_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2，路径及文字"/>
+
+            <Button
+                android:id="@+id/bt_range"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3，区域（Range）"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/bt_canvas_change"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="4，canvas变换与操作"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/bt_draw_text_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="5，drawrText()详解"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/bt_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="6、Path之贝赛尔曲线和手势轨迹、水波纹效果"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/bt_all_paint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="7、《 自定义控件三部曲之绘图篇(七)——Paint之函数大汇总》"/>
+
+            <Button
+                android:id="@+id/bt_paint_colormatrix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8、《自定义控件三部曲之绘图篇（八）——Paint之ColorMatrix与滤镜效果》"/>
+
+            <Button
+                android:id="@+id/bt_paint_colorfilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="9、《自定义控件三部曲之绘图篇（九）——Paint之setColorFilter》"/>
+
+            <Button
+                android:id="@+id/bt_paint_x_fermode_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10、《自定义控件三部曲之绘图篇（十）——Paint之setXfermode(一)》"/>
+
+            <Button
+                android:id="@+id/bt_paint_x_fermode_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="11、《自定义控件三部曲之绘图篇（十一）——Paint之setXfermode(二)》"/>
+
+            <Button
+                android:id="@+id/bt_paint_x_fermode_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="12、《自定义控件三部曲之绘图篇（十二）——Paint之setXfermode(三)》"/>
+
+            <Button
+                android:id="@+id/bt_canvas_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="13、《自定义控件三部曲之绘图篇（十三）——Canvas与图层(一)》"/>
+
+            <Button
+                android:id="@+id/bt_canvas_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="14、《自定义控件三部曲之绘图篇（十四）——Canvas与图层（二）》"/>
+
+            <Button
+                android:id="@+id/bt_about_qq_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="15、《自定义控件三部曲之绘图篇（十五）——QQ红点拖动删除效果实现（基本原理篇）》"/>
+
+            <Button
+                android:id="@+id/bt_shallow_light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="16、《自定义控件三部曲之绘图篇（十六）——给控件添加阴影效果与发光效果》"/>
+
+            <Button
+                android:id="@+id/bt_bitmap_shallow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="17、《自定义控件三部曲之绘图篇（十七）——为Bitmap添加阴影并封装控件》"/>
+
+            <Button
+                android:id="@+id/bt_bitmap_shader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="18、《自定义控件三部曲之绘图篇（十八）——BitmapShader与望远镜效果》"/>
+
+            <Button
+                android:id="@+id/bt_linear_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="19、《自定义控件三部曲之绘图篇(十九)——LinearGradient与闪动文字效果》"/>
+
+            <Button
+                android:id="@+id/bt_radialgradient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="20、《自定义控件三部曲之绘图篇(二十)——RadialGradient与水波纹按钮效果》"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

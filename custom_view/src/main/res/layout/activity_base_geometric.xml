@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.custom_view.activity.BaseGeometricActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.example.custom_view.view.CustomViewLine
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.CustomViewSomeLines
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyPointView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyRectVeiw
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyRoundRectView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyCircleView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyOvalView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyArcView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
