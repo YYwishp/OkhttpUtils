@@ -43,6 +43,33 @@
             <com.example.custom_view.view.MyDrawTextOnPathView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyRoundRectView
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyAddCircleView
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyAddOvalView
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyAddArc
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"/>
+            <com.example.custom_view.view.MyTextView
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"/>
+            <com.example.custom_view.view.MyText2View
+                android:layout_width="wrap_content"
+                android:layout_height="180dp"/>
+            <com.example.custom_view.view.MyPostTextView
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"/>
+            <com.example.custom_view.view.MyTextOnPathView
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"/>
+
+
+
 
 
 
