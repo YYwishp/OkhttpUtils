@@ -53,7 +53,14 @@ public class MainActivity extends AppCompatActivity {
 			View inflate = View.inflate(MainActivity.this, R.layout.item_list, null);
 			TextView textView = (TextView) inflate.findViewById(R.id.text);
 			textView.setText(getItem(i));
+			if (list.get(i).equals("第2")) {
+				TextView textView1 = new TextView(MainActivity.this);
+				//textView1.setText("lalalala");
+				return textView1;
+			}
 			return inflate;
 		}
+
+
 	}
 }
