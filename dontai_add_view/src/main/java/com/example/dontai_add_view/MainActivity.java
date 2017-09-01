@@ -50,7 +50,8 @@ public class MainActivity extends Activity {
 
 				imgHeader = (SimpleDraweeView) inflate2.findViewById(R.id.img_header);
 				textname = (TextView) inflate2.findViewById(R.id.textname);
-				imgHeader.setImageURI("http://www.91relax.com/images/activity/1_2.5.0.png");
+				imgHeader.setImageURI("");
+//				imgHeader.setImageURI("http://www.91relax.com/images/activity/1_2.5.0.png");
 				//picture=http://www.91relax.com/images/activity/1_2.5.0.png
 				linHorizontal.addView(inflate2);
 			}
