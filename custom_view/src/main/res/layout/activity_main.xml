@@ -32,6 +32,7 @@
                 android:text="2，路径及文字"/>
 
             <Button
+                android:background="#89f5"
                 android:id="@+id/bt_range"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

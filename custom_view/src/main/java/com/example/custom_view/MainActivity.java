@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.custom_view.activity.BaseGeometricActivity;
 import com.example.custom_view.activity.LineAndTextActivity;
+import com.example.custom_view.activity.RangeActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				break;
 
 			case R.id.bt_range:
+				startActivity(new Intent(this,RangeActivity.class));
 				break;
 
 			case R.id.bt_canvas_change:
