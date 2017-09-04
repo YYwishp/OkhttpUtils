@@ -63,7 +63,7 @@ public class ListViewActivity extends AppCompatActivity {
 					public void run() {
 
 						list.clear();
-						for (int i = 0; i < 20; i++) {
+						for (int i = 0; i < 200; i++) {
 							list.add(i+"*******");
 						}
 						myAdapter.notifyDataSetChanged();
@@ -80,6 +80,21 @@ public class ListViewActivity extends AppCompatActivity {
 			public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
 				super.onLoadMore(refreshLayout);
 				n++;
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
+				list.add("新数据"+n);
 				list.add("新数据"+n);
 				list.add("新数据"+n);
 				list.add("新数据"+n);
