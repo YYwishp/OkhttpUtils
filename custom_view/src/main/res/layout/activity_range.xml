@@ -37,6 +37,37 @@
 
                 />
 
+            <com.example.custom_view.view.MyRegionView4
+                android:background="#4da"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
+            <com.example.custom_view.view.MyRegionView5
+                android:background="#abc"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
+            <com.example.custom_view.view.MyRegionView6
+                android:background="#999"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
+            <com.example.custom_view.view.MyRegionView7
+                android:background="#19f"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
+            <com.example.custom_view.view.MyRegionView8
+                android:background="#fea"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
+            <com.example.custom_view.view.MyRegionView9
+                android:background="#fe1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
+
 
 
 
