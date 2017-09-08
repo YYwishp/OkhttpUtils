@@ -40,6 +40,8 @@ public class MyRegionView9 extends View {
 		region2 = new Region(rect2);
 		//再构造一个画笔,填充Region操作结果
 		paint_fill = new Paint();
+		//最终区域为region1 与 region2相交之外的区域
+		region.op(region2, Region.Op.XOR);
 	}
 
 	@Override
@@ -55,8 +57,7 @@ public class MyRegionView9 extends View {
 		paint.setAntiAlias(true);
 		canvas.drawText("最终区域为region1 与 region2相交之外的区域",100,350,paint);
 
-		//最终区域为region1 与 region2相交之外的区域
-		region.op(region2, Region.Op.XOR);
+
 		paint_fill.setColor(Color.GREEN);
 		paint_fill.setStyle(Paint.Style.FILL);
 		//region就是两个区域的交集，
