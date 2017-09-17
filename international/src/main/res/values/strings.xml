@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">International</string>
+    <string name="helloworld"> 哈喽，世界</string>
+</resources>
