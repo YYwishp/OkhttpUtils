@@ -55,12 +55,13 @@ public class Fragment_2 extends Fragment {
 		// 为SwipeRecyclerView的Item创建菜单就两句话，不错就是这么简单：
 		// 设置菜单创建器。
 		recyclerView.setSwipeMenuCreator(swipeMenuCreator);
-		// 设置菜单Item点击监听。
+		// 设置菜单Item点击监听。//
 //		recyclerView.setSwipeMenuItemClickListener(menuItemClickListener);
 		//想要可以侧滑，就不能进行viewpager滑动就要用MenuAdapter
 		mMenuAdapter = new MenuAdapter(mStrings);
 		//没有侧滑菜单，就用自己的adapter，这样就可以和viewpager一样滑动
 		myAdapter = new MyAdapter(getContext(), mStrings);
+		
 //		mMenuAdapter.setOnItemClickListener(onItemClickListener);
 		recyclerView.setAdapter(mMenuAdapter);
 		return inflate;
@@ -167,5 +168,6 @@ public class Fragment_2 extends Fragment {
 			
 		}
 	}
+	
 	
 }
