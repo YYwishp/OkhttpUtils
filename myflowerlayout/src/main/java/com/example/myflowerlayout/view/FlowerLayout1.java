@@ -28,7 +28,7 @@ public class FlowerLayout1 extends ViewGroup {
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		//1,获取此控件原有的宽高模式
+		/*//1,获取此控件原有的宽高模式
 		int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 		int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 		//2,获取此控件原有的宽高大小
@@ -40,13 +40,13 @@ public class FlowerLayout1 extends ViewGroup {
 		int count = getChildCount();
 		
 		
-		//创建行对象
-		if (line == null) {
-			line = new Line();
-		}
+		
 		for (int i = 0; i < count; i++) {
 			View childView = getChildAt(i);
-	
+			//创建行对象
+			if (line == null) {
+				line = new Line();
+			}
 			//5,逐个处理孩子节点，让其不能超过父控件的宽高
 			int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(invalidWidth, widthMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : widthMode);
 			int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize, heightMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : heightMode);
@@ -103,13 +103,87 @@ public class FlowerLayout1 extends ViewGroup {
 			totalLineHeight +=line.lineHeight;
 		}
 		//所有行间距+所有行高+上下的padding
-		int flowerHeight= (lineList.size() - 1) * verticalSpacing + totalLineHeight + getPaddingTop() + getPaddingBottom();
+		int flowerHeight= ((lineList.size() - 1) * verticalSpacing )+ totalLineHeight + getPaddingTop() + getPaddingBottom();
 		//宽高的大小都得到精确值，宽高的模式也要维护成精确值
 		 widthMeasureSpec= MeasureSpec.makeMeasureSpec(flowerWidth, MeasureSpec.EXACTLY);
 		 heightMeasureSpec = MeasureSpec.makeMeasureSpec(flowerHeight, MeasureSpec.EXACTLY);
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		*/
+		
+		
+		int sizeWidth = MeasureSpec.getSize(widthMeasureSpec) - getPaddingRight() - getPaddingLeft();
+		int sizeHeight = MeasureSpec.getSize(heightMeasureSpec) - getPaddingTop() - getPaddingBottom();
+		
+		int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
+		int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
+		
+		restoreLine();// 还原数据，以便重新记录
+		final int count = getChildCount();
+		for (int i = 0; i < count; i++) {
+			final View child = getChildAt(i);
+			if (child.getVisibility() == GONE) {
+				continue;
+			}
+			int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(sizeWidth, modeWidth == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : modeWidth);
+			int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(sizeHeight, modeHeight == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : modeHeight);
+			// 测量child
+			child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+			
+			if (line == null) {
+				line = new Line();
+			}
+			int childWidth = child.getMeasuredWidth();
+			usedWidth += childWidth;// 增加使用的宽度
+			if (usedWidth <= sizeWidth) {// 使用宽度小于总宽度，该child属于这一行。
+				line.addView(child);// 添加child
+				usedWidth += horizontalSpacing;// 加上间隔
+				if (usedWidth >= sizeWidth) {// 加上间隔后如果大于等于总宽度，需要换行
+					if (!newLine()) {
+						break;
+					}
+				}
+			} else {// 使用宽度大于总宽度。需要换行
+				if (line.getViewCount() == 0) {// 如果这行一个child都没有，即使占用长度超过了总长度，也要加上去，保证每行都有至少有一个child
+					line.addView(child);// 添加child
+					if (!newLine()) {// 换行
+						break;
+					}
+				} else {// 如果该行有数据了，就直接换行
+					if (!newLine()) {// 换行
+						break;
+					}
+					// 在新的一行，不管是否超过长度，先加上去，因为这一行一个child都没有，所以必须满足每行至少有一个child
+					line.addView(child);
+					usedWidth += childWidth + horizontalSpacing;
+				}
+			}
+		}
+		
+		if (line != null && line.getViewCount() > 0 && !lineList.contains(line)) {
+			// 由于前面采用判断长度是否超过最大宽度来决定是否换行，则最后一行可能因为还没达到最大宽度，所以需要验证后加入集合中
+			lineList.add(line);
+		}
+		
+		int totalWidth = MeasureSpec.getSize(widthMeasureSpec);
+		int totalHeight = 0;
+		final int linesCount = lineList.size();
+		for (int i = 0; i < linesCount; i++) {// 加上所有行的高度
+			totalHeight += lineList.get(i).lineHeight;
+		}
+		totalHeight += verticalSpacing * (linesCount - 1);// 加上所有间隔的高度
+		totalHeight += getPaddingTop() + getPaddingBottom();// 加上padding
+		// 设置布局的宽高，宽度直接采用父view传递过来的最大宽度，而不用考虑子view是否填满宽度，因为该布局的特性就是填满一行后，再换行
+		// 高度根据设置的模式来决定采用所有子View的高度之和还是采用父view传递过来的高度
+		setMeasuredDimension(totalWidth, resolveSize(totalHeight, heightMeasureSpec));
+		
 	}
-
+	
+	/** 还原所有数据 */
+	private void restoreLine() {
+		lineList.clear();
+		line = new Line();
+		usedWidth = 0;
+	}
 	/**
 	 * 换行方法
 	 */
@@ -131,13 +205,23 @@ public class FlowerLayout1 extends ViewGroup {
 	@Override
 	protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
 		//1.获取用户设置的内间距
-		int left = getPaddingLeft();
+		/*int left = getPaddingLeft();
 		int top = getPaddingTop();
 		//2,放置LineList集合中的每一个航对象的位置
 		for (int j = 0; j < lineList.size(); j++) {
 			Line line = lineList.get(i);
 			line.layout(left, top);
 			top += line.lineHeight + verticalSpacing;
+		}*/
+		
+		
+		int left = getPaddingLeft();//获取最初的左上点
+		int top = getPaddingTop();
+		final int linesCount = lineList.size();
+		for (int j = 0; j < linesCount; j++) {
+		Line oneLine = lineList.get(i);
+			oneLine.layout(left, top);//布局每一行
+			top += oneLine.lineHeight + verticalSpacing;//为下一行的top赋值
 		}
 	}
 
@@ -160,7 +244,7 @@ public class FlowerLayout1 extends ViewGroup {
 			int measuredHeight = childView.getMeasuredHeight();
 			int measuredWidth = childView.getMeasuredWidth();
 			//当前行中所有子空间宽度的和
-			totalWidth=+measuredWidth;
+			totalWidth+=measuredWidth;
 			lineHeight = lineHeight < measuredHeight ? measuredHeight : lineHeight;
 			viewList.add(childView);
 		}
@@ -171,11 +255,10 @@ public class FlowerLayout1 extends ViewGroup {
 
 		/**
 		 * 放置行对象中控制的方法
-		 * @param left
-		 * @param top
+		 *
 		 */
-		public void layout(int left, int top) {
-			//父控件可用宽度的大小
+		public void layout(int l, int t) {
+			/*//父控件可用宽度的大小
 			int validWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
 			//一行当中剩余的总宽度
 			int surplusTotalWidth = validWidth - totalWidth - (viewList.size() - 1) * horizontalSpacing;
@@ -185,7 +268,8 @@ public class FlowerLayout1 extends ViewGroup {
 			if (surplusWidth > 0) {
 				for (int i = 0; i < viewList.size(); i++) {
 					View view = viewList.get(i);
-					int viewWidth = view.getMeasuredWidth() + surplusWidth;
+//					int viewWidth = view.getMeasuredWidth() + surplusWidth;
+					int viewWidth = view.getMeasuredWidth();
 					int viewHeight = view.getMeasuredHeight();
 					int wideMeasureSpec = MeasureSpec.makeMeasureSpec(viewWidth, MeasureSpec.EXACTLY);
 					int heightMeasureSpec = MeasureSpec.makeMeasureSpec(viewHeight, MeasureSpec.EXACTLY);
@@ -203,9 +287,55 @@ public class FlowerLayout1 extends ViewGroup {
 					View view = viewList.get(0);
 					view.layout(left,top,left+view.getMeasuredWidth(),top+view.getMeasuredHeight());
 				}
+			}*/
+			
+			int left = l;
+			int top = t;
+			int count = getViewCount();
+			//总宽度
+			int layoutWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
+			//剩余的宽度，是除了View和间隙的剩余空间
+			int surplusWidth = layoutWidth - totalWidth - horizontalSpacing * (count - 1);
+			
+			
+			
+			
+			
+			if (surplusWidth >= 0) {// 剩余空间
+				// 采用float类型数据计算后四舍五入能减少int类型计算带来的误差
+				int splitSpacing = (int) (surplusWidth / count + 0.5);
+				for (int i = 0; i < count; i++) {
+					final View view = viewList.get(i);
+					int childWidth = view.getMeasuredWidth();
+					int childHeight = view.getMeasuredHeight();
+					//计算出每个View的顶点，是由最高的View和该View高度的差值除以2
+					int topOffset = (int) ((lineHeight - childHeight) / 2.0 + 0.5);
+					if (topOffset < 0) {
+						topOffset = 0;
+					}
+					//把剩余空间平均到每个View上
+					//childWidth = childWidth + splitSpacing;
+					view.getLayoutParams().width = childWidth;
+					if (splitSpacing > 0) {//View的长度改变了，需要重新measure
+						int widthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY);
+						int heightMeasureSpec = MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.EXACTLY);
+						view.measure(widthMeasureSpec, heightMeasureSpec);
+					}
+					//布局View
+					view.layout(left, top + topOffset, left + childWidth, top + topOffset + childHeight);
+					left += childWidth + horizontalSpacing; //为下一个View的left赋值
+				}
+			} else {
+				if (count == 1) {
+					View view = viewList.get(0);
+					view.layout(left, top, left + view.getMeasuredWidth(), top + view.getMeasuredHeight());
+				} else {
+					// 走到这里来，应该是代码出问题了，目前按照逻辑来看，是不可能走到这一步
+				}
 			}
-
 		}
+
+		
 
 	}
 

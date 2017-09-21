@@ -70,7 +70,7 @@ public class FlowLayout extends ViewGroup {
 		int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
 		int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
 
-		restoreLine();// 还原数据，以便重新记录
+		restoreLine();// 还原数据，以便重新记录,很重要
 		final int count = getChildCount();
 		for (int i = 0; i < count; i++) {
 			final View child = getChildAt(i);
@@ -220,7 +220,6 @@ public class FlowLayout extends ViewGroup {
 						view.measure(widthMeasureSpec, heightMeasureSpec);
 					}
 					//布局View
-//					view.layout(left, top + topOffset, left + childWidth, top + topOffset + childHeight);
 					view.layout(left, top + topOffset, left + childWidth, top + topOffset + childHeight);
 					left += childWidth + mHorizontalSpacing; //为下一个View的left赋值
 				}

@@ -8,182 +8,197 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlowerLayout extends ViewGroup {
-	private static final String tag = "FlowerLayout";
-	//行对象,用于添加TextView
 	private Line line;
-	//一行中已经使用的宽度大小
-	private int usedWidth = 0;
-	//控件和控件间的水平间距
+	//当前行已使用的宽度的具体值
+	private int mUsedLineWidth = 0;
+	//水平方向上面间距具体值
 	private int horizontalSpacing = 20;
-	//行根行间的竖直间距
+	//竖直方向上行根行的间距
 	private int verticalSpacing = 20;
-	//行所在的集合
+	//存储行对象的集合
 	private List<Line> lineList = new ArrayList<Line>();
+	//应用中,可以有的最大行数
+	private int maxLine = 100;
 	
 	public FlowerLayout(Context context) {
 		super(context);
 	}
 	
+	//获取了控件的宽高以后,需要其排放位置的方法
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
-		//1,获取用户设置的内间距
+		//获取每一个行对象所在的左上角的位置
 		int left = getPaddingLeft();
 		int top = getPaddingTop();
-		//2,放置lineList中的每一个行对象的位置
+		//定义每一个行对象所在的位置
 		for (int i = 0; i < lineList.size(); i++) {
 			Line line = lineList.get(i);
-			line.layout(left, top);
+			line.layoutView(left, top);
+			//顶端的高度值,是以上所有行的高度的累加+行和行的间距
 			top += line.lineHeight + verticalSpacing;
 		}
 	}
 	
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		//1,获取此自定义控件原有的宽高模式
+		//获取屏幕的宽度 - 左右内存间距 = 可用宽度
+		int widthSize = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft() - getPaddingRight();
+		//获取高度值
+		int heightSize = MeasureSpec.getSize(heightMeasureSpec) - getPaddingBottom() - getPaddingTop();
+		//获取宽高的模式
 		int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 		int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-		//2,获取此自定义控件原有的宽高大小
-		int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-		//3,获取当前自定义控件的可用的宽度
-		int invalidWidth = widthSize - getPaddingLeft() - getPaddingRight();
-		//4,获取此自定义控件内部的所有的TextView,然后计算其换行规则
-		int count = getChildCount();
-		//创建一个行对象,
-		if (line == null) {
-			line = new Line();
-		}
-		for (int i = 0; i < count; i++) {
+		//处理自定义控件中的每一个内部的view,所有的textView都是FlowerLayout的子节点
+		int childCount = getChildCount();
+		for (int i = 0; i < childCount; i++) {
 			View childView = getChildAt(i);
-			//5,逐个处理孩子节点,让其不能超过父控件的宽高
-			//5.1如果父控件的模式是精确的invalidWidth像素,孩子节点的要求就是不能超过父控件invalidWidth宽度,所以孩子节点的模式至多
-			//5.2如果夫控件的模式是至多,或者未定义,孩子节点的模式和父控件的模式,保持一致,子控件宽度依然不会超过夫控件
-			int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(invalidWidth, widthMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : widthMode);
-			int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize, heightMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : heightMode);
-			//6,告知孩子节点,安装上诉定义出来的宽高模式和大小控件的显示
-			childView.measure(childWidthMeasureSpec, childHeightMeasureSpec);
-			//7,行对象添加相应TextView,并且处理器换行规则
+			//定义FlowerLayout子控件的最大宽高值
+			//如果夫控件的模式是精确,子控件的模式就是至多
+			//如果库控件的模式是至多或者未知(子控件的模式跟夫控件一致)
+			int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(widthSize,
+					widthMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : widthMode);
+			int heightWidthMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize,
+					heightMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : heightMode);
+			//重新绘制对应的子控件
+			childView.measure(childWidthMeasureSpec, heightWidthMeasureSpec);
+			//获取索引指向childView的宽度值
 			int childWidth = childView.getMeasuredWidth();
-			usedWidth += childWidth;
-			if (usedWidth <= invalidWidth) {//匹配图片中的第2中情况
-				//此控件可以添加到当前行
+			//获取索引指向childView的高度值
+			int childHeight = childView.getMeasuredHeight();
+			//如果当前控件的宽度小于当前行的可用宽度,则可以添加到当前行中
+			if (line == null) {
+				line = new Line();
+			}
+			mUsedLineWidth += childWidth;
+			if (mUsedLineWidth < widthSize) {
+				//可以添加当前控件  对应图片情况 ============2
 				line.addView(childView);
-				//拿已使用的宽度+水平间距>当前行的可用宽度,则后续控件需要换行添加
-				usedWidth += horizontalSpacing;
-				if (usedWidth > invalidWidth) {
-					//换行放置后续的控件
+				mUsedLineWidth += horizontalSpacing;
+				if (mUsedLineWidth > widthSize) {
+					//换行,如果创建行成功,则代码运行结束,从而进入下一次的循环条件,也就是在创建的新行上去做相同的判断逻辑
 					if (!newLine()) {
 						break;
 					}
 				}
 			} else {
-				//已使用的行的宽度,大于或者等于当前行的可用宽度(第一种情况(放控件放不下),第三中情况(一行只能放置一个控件))
-				if (line.getViewCount() == 0) {//图片中的第三种情况
-					//此控件添加到当前行,后续的控件就需要换行放置
+				//有可能不能加到当前行 对应图片情况============3
+				if (line.getLineViewCount() == 0) {
+					//当前行还没有添加过任何的控件
 					line.addView(childView);
+					//如果前一个控件单独占有了一行,后续的控件就需要去新起一行做相应添加
 					if (!newLine()) {
 						break;
 					}
-				} else {//图片中的第1中情况
+				} else {
+					// 对应图片情况============1
+					//如果创建了新行,则需要将控件添加到新的行里面去
 					if (!newLine()) {
 						break;
 					}
 					line.addView(childView);
-					usedWidth += childWidth + horizontalSpacing;
+					mUsedLineWidth += childWidth + horizontalSpacing;
 				}
 			}
 		}
-		//8,将最后的一行添加到行的集合中去
-		if (line != null && line.getViewCount() > 0 && !lineList.contains(line)) {
+		//如果现在所在的最后一行,还没有添加到行所在集合中,就需要做添加操作
+		if (line != null && !lineList.contains(line) && line.getLineViewCount() > 0) {
 			lineList.add(line);
 		}
-		//9,计算获取自定义控件的宽度和高度,然后让此控件按照计算出来的精确度,宽高去做展示
-		int flowWidth = MeasureSpec.getSize(widthMeasureSpec);
-		//10,控件的高度 = 所有行的高度和+行间距+此控件的顶部和底部的内间距
-		//所有行的高度和
-		int totalLineHeight = 0;
-		for (int i = 0; i < lineList.size(); i++) {
+		//具体的计算FlowerLayout的宽高值,用于测量
+		//自定义控件的宽度
+		int flWidth = MeasureSpec.getSize(widthMeasureSpec);
+		//自定义控件的高度
+		//所有行的高度+行和行的总间距+flowerLayout内间距(顶端和底端) = 自定义空的高度
+		int lineCount = lineList.size();
+		int flHeight = 0;
+		for (int i = 0; i < lineCount; i++) {
 			Line line = lineList.get(i);
-			totalLineHeight += line.lineHeight;
+			flHeight += line.lineHeight;
 		}
-		//所有行的高度和+行间距+
-		int flowHeight = (lineList.size() - 1) * verticalSpacing + totalLineHeight + getPaddingBottom() + getPaddingTop();
-		//宽高的大小都得到精确值,宽高的模式也需要维护成精确
-		widthMeasureSpec = MeasureSpec.makeMeasureSpec(flowWidth, MeasureSpec.EXACTLY);
-		heightMeasureSpec = MeasureSpec.makeMeasureSpec(flowHeight, MeasureSpec.EXACTLY);
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//		setMeasuredDimension(flowWidth, resolveSize(flowHeight, heightMeasureSpec));
+		flHeight = flHeight + (lineCount - 1) * verticalSpacing + getPaddingTop() + getPaddingBottom();
+		//onMeasure方法具体实现
+		setMeasuredDimension(flWidth, resolveSize(flHeight, heightMeasureSpec));
 	}
 	
-	/**
-	 * 换行方法
-	 */
-	public boolean newLine() {
-		//1,将换行的前一行,添加到行的集合中,存储
+	//换行的方法
+	private boolean newLine() {
+		//在上一行的基础上,没有办法去方向控件了,所以换行,记录之前的行对象
 		lineList.add(line);
-		if (lineList.size() < 50) {
-			//2,创建一个新的行对象
+		//应用中一共不能超过多少行
+		if (lineList.size() < 100) {
 			line = new Line();
-			//3,将新行的已使用宽度设置为0
-			usedWidth = 0;
+			//新开启一行后,需要将已使用的行宽度归0
+			mUsedLineWidth = 0;
 			return true;
 		}
 		return false;
 	}
 	
+	//创建一个行对象
 	class Line {
-		//当前行的行高度大小
-		private int lineHeight = 0;
-		//当前行中所有控件的宽度和
-		private int totalWidth = 0;
-		//维护当前行,有多少个控件的集合,此集合用于计数行对象中的控件的个数
+		//行对象中,每一个控件宽度值叠加得到的最终总宽度
+		private int widthTotal;
+		//行高度是由当前行中,最高的控件去填充起来
+		private int lineHeight;
 		private List<View> viewList = new ArrayList<View>();
 		
-		/**
-		 * @param childView 向行对象中添加一个view
-		 */
-		public void addView(View childView) {
-			//测量后的高度大小
-			int measuredHeight = childView.getMeasuredHeight();
-			int measuredWidth = childView.getMeasuredWidth();
-			totalWidth += measuredWidth;
-			lineHeight = lineHeight < measuredHeight ? measuredHeight : lineHeight;
-			viewList.add(childView);
-		}
-		
-		public int getViewCount() {
+		//告知当前行有多少方格的方法
+		public int getLineViewCount() {
 			return viewList.size();
 		}
 		
-		//放置行对象中控件的方法
-		public void layout(int left, int top) {
-			//可用宽度大小
+		//添加view的方法
+		public void addView(View view) {
+			//获取view对象的高度
+			//获取view对象的宽度
+			int width = view.getMeasuredWidth();
+			int height = view.getMeasuredHeight();
+			//每添加一个view到当前行,都需要去维护widthTotal
+			widthTotal += width;
+			//高度,添加进来最高的控件的高度,就是行高度
+			lineHeight = lineHeight < height ? height : lineHeight;
+			//将对应的view添加到行对象中,封装内部view的集合中去
+			viewList.add(view);
+		}
+		
+		//行中控件的一个排列方式(安放的位置),以及其留白区域的分配规则
+		public void layoutView(int l, int t) {
+			//l代表左侧的起始位置,t代表起始的顶端位置
+			int left = l;
+			int top = t;
+			//计算水平方向上的留白区域
+			//自定义控件的宽度-左右两次的内间距-当前行控件已经使用的宽度-当前行控件和控件间的间距 = 留白区域
+			int viewCount = viewList.size();
 			int validWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
-			//获取当前行的总的剩余宽度大小
-			int surplusTotalWidth = validWidth - totalWidth - (viewList.size() - 1) * horizontalSpacing;
-			//剩余宽度大小需要对所有的控件进行平均分配
-			int surplusWidth = surplusTotalWidth / getViewCount();
-			if (surplusWidth > 0) {
-				//将此需要给每个控件添加的宽度,添加到控件身上
-				for (int i = 0; i < viewList.size(); i++) {
+			int surplusWidthTotal = validWidth - widthTotal - (viewCount - 1) * horizontalSpacing;
+			//留白区域需要去给当前行的每一个控件做平均分配
+			if (surplusWidthTotal > 0) {
+				//每一个控件还可以去添加的额外分配的宽度值
+				int surplusWidth = surplusWidthTotal / viewCount;
+				//遍历获取当前行上每一个控件,然后将额外的宽度添加给每一个行中的view
+				for (int i = 0; i < viewCount; i++) {
 					View view = viewList.get(i);
+					//获取原有的宽度+额外分配宽度 = 真实宽度
 					int viewWidth = view.getMeasuredWidth() + surplusWidth;
 					int viewHeight = view.getMeasuredHeight();
-					//view.getLayoutParams().width = viewWidth;
-					int widthMeasureSpec = MeasureSpec.makeMeasureSpec(viewWidth, MeasureSpec.EXACTLY);
-					int heightMeasureSpec = MeasureSpec.makeMeasureSpec(viewHeight, MeasureSpec.EXACTLY);
-					view.measure(widthMeasureSpec, heightMeasureSpec);
-					int surplusHeightHalf = (lineHeight - viewHeight) / 2;
-					view.layout(left, top + surplusHeightHalf, left + viewWidth, top + surplusHeightHalf + viewHeight);
-					//循环过程中后一个控件的左侧坐标 = 上一个控件的左侧坐标+上一个控件的宽度+水平间距
+					//修改过宽度后,需要去重写构建view
+					int viewMakeMeasureSpecWidth = MeasureSpec.makeMeasureSpec(viewWidth, MeasureSpec.EXACTLY);
+					int viewMakeMeasureSpecHeight = MeasureSpec.makeMeasureSpec(viewHeight, MeasureSpec.EXACTLY);
+					view.measure(viewMakeMeasureSpecWidth, viewMakeMeasureSpecHeight);
+					//计算当前要去放置控件和默认顶端的额外间距
+					int surplusHeightTotal = lineHeight - viewHeight;
+					int surplusHeightTotalHalf = surplusHeightTotal / 2;
+					if (surplusHeightTotalHalf < 0) {
+						surplusHeightTotalHalf = 0;
+					}
+					//去指定每一个view的位置了
+					view.layout(left, top + surplusHeightTotalHalf, left + viewWidth, top + surplusHeightTotalHalf + viewHeight);
 					left += viewWidth + horizontalSpacing;
 				}
 			} else {
-				if (getViewCount() == 1) {
-					//一行只放置一个控件的时候,需要将此控件指定左上右下的坐标位置
-					View view = viewList.get(0);
-					view.layout(left, top, left + view.getMeasuredWidth(), top + view.getMeasuredHeight());
-				}
+				//水平方向上没有留白,当前行就一个控件
+				View view = viewList.get(0);
+				view.layout(left, top, left + view.getMeasuredWidth(), top + view.getMeasuredHeight());
 			}
 		}
 	}
