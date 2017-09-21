@@ -38,12 +38,15 @@ public class FlowerLayout1 extends ViewGroup {
 		int invalidWidth = widthSize - getPaddingLeft() - getPaddingRight();
 		//4,获取此控件内部所有的Textview，然后 计算其换行规则
 		int count = getChildCount();
+		
+		
 		//创建行对象
 		if (line == null) {
 			line = new Line();
 		}
 		for (int i = 0; i < count; i++) {
 			View childView = getChildAt(i);
+	
 			//5,逐个处理孩子节点，让其不能超过父控件的宽高
 			int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(invalidWidth, widthMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : widthMode);
 			int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize, heightMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST : heightMode);
