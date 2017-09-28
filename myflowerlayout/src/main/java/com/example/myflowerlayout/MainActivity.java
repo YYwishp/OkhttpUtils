@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 		
 		scroll = (ScrollView) findViewById(R.id.scroll);
 		FlowLayout flowerLayout1 = new FlowLayout(this);
-		
+		flowerLayout1.setPadding(20,20,20,20);
 		ArrayList<String> list = new ArrayList<>();
 		list.add("阿斗的放");
 		list.add("阿斗erefsdgdfgxc的放");

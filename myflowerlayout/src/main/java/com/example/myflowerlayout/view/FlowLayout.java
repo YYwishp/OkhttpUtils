@@ -212,7 +212,7 @@ public class FlowLayout extends ViewGroup {
 						topOffset = 0;
 					}
 					//把剩余空间平均到每个View上
-					//childWidth = childWidth + splitSpacing;
+//					childWidth = childWidth + splitSpacing;
 					view.getLayoutParams().width = childWidth;
 					if (splitSpacing > 0) {//View的长度改变了，需要重新measure
 						int widthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY);
