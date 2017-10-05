@@ -86,9 +86,8 @@ public class HiddenAnimUtils {
 		animator.start();
 	}
 	
-	private ValueAnimator createDropAnimator(final View v, int start, int end) {
+	private ValueAnimator createDropAnimator(final View v, final int start, final int end) {
 		ValueAnimator animator = ValueAnimator.ofInt(start, end);
-	
 		animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 			@Override
 			public void onAnimationUpdate(ValueAnimator animation) {
@@ -97,6 +96,7 @@ public class HiddenAnimUtils {
 				layoutParams.height = value;
 //				layoutParams.width = value;
 				v.setLayoutParams(layoutParams);
+				
 			}
 		});
 		return animator;
