@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
 		edittext = (EditText) findViewById(R.id.edittext);
 
 
+		activityMain.addView(new FontView(this));
+
+
 		button = (Button) findViewById(R.id.button);
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override

@@ -103,7 +103,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 				BigDecimal m1 = new BigDecimal(this.num1.getText().toString().trim());
 				BigDecimal m2 = new BigDecimal(this.num2.getText().toString().trim());
-				result.setText(m1.divide(m2).toString());
+				BigDecimal divide = m1.divide(m2);
+				BigDecimal bigDecimal = divide.setScale(8, BigDecimal.ROUND_DOWN);
+				result.setText(bigDecimal.toPlainString());
 				break;
 		}
 

@@ -12,16 +12,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.commons_long.MainActivity">
     <TextView
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"/>
     <EditText
+        android:visibility="gone"
         android:id="@+id/edittext"
         android:layout_width="match_parent"
         android:layout_height="70dp"/>
     <Button
+        android:visibility="gone"
         android:id="@+id/button"
         android:text="测试"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
+
+
+    <com.example.commons_long.FontView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>
