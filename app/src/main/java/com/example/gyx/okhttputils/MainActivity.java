@@ -283,10 +283,9 @@ public class MainActivity extends AppCompatActivity {
         initView();
         TreeMap<String, GloableBean> treeMap = test_2();
         Set<Map.Entry<String, GloableBean>> entries = treeMap.entrySet();
-        treeMap.remove("refreshrate");
-        treeMap.remove("updatedAt");
         Set<Map.Entry<String, GloableBean>> entries1 = treeMap.entrySet();
         Iterator<Map.Entry<String, GloableBean>> iterator = entries1.iterator();
+        Toast.makeText(mContext, "treeMap.size():" + treeMap.size(), Toast.LENGTH_SHORT).show();
         while (iterator.hasNext()) {
             Map.Entry<String, GloableBean> next = iterator.next();
             String key = next.getKey();
