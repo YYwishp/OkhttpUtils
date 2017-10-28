@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext = this;
     private Handler handler = new Handler();
     private EditText edit;
-    
+    private Button btButton2;
+    private Button btButton3;
+    private Button btButton1;
     private String json = "{\n" +
             "  \"AUD\": {\n" +
             "    \"15m\": 7784.63,\n" +
@@ -281,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
       //  loadNetworkData();
        // test();
         initView();
-        TreeMap<String, GloableBean> treeMap = test_2();
+        /*TreeMap<String, GloableBean> treeMap = test_2();
         Set<Map.Entry<String, GloableBean>> entries = treeMap.entrySet();
         Set<Map.Entry<String, GloableBean>> entries1 = treeMap.entrySet();
         Iterator<Map.Entry<String, GloableBean>> iterator = entries1.iterator();
@@ -292,10 +296,26 @@ public class MainActivity extends AppCompatActivity {
             GloableBean value = next.getValue();
             String last = value.getLast();
             String last1= value.getSymbol();
-        }
+        }*/
         
     }
-    
+    //Log.e("文字----","----"+trim);
+    TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            LogUtil.e("文字--前" + s);
+        }
+        
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            LogUtil.e("文字--中" + s);
+        }
+        
+        @Override
+        public void afterTextChanged(Editable s) {
+            LogUtil.e("文字--后" + s);
+        }
+    };
     private TreeMap<String, GloableBean>  test_2() {
         TreeMap<String, GloableBean> treeMap = new TreeMap<>();
         JSONObject jsonObject = null;
@@ -327,23 +347,34 @@ public class MainActivity extends AppCompatActivity {
 
         edit = (EditText) findViewById(R.id.edit);
         String trim = edit.getText().toString().trim();
-        Log.e("文字----","----"+trim);
-        edit.addTextChangedListener(new TextWatcher() {
+    
+       
+    
+        btButton1 = (Button) findViewById(R.id.bt_button1);
+      
+    
+        btButton2 = (Button) findViewById(R.id.bt_button2);
+        btButton2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                LogUtil.e("文字--前"+s);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                LogUtil.e("文字--中"+s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                LogUtil.e("文字--后"+s);
+            public void onClick(View v) {
+                edit.removeTextChangedListener(watcher);
             }
         });
+        btButton3 = (Button) findViewById(R.id.bt_button3);
+        btButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit.addTextChangedListener(watcher);
+            }
+        });
+        btButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit.setText("测试测试");
+            }
+        });
+        
+       
     }
 
     private void test() {
