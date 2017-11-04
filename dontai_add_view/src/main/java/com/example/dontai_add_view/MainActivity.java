@@ -53,6 +53,13 @@ public class MainActivity extends Activity {
 				imgHeader.setImageURI("");
 //				imgHeader.setImageURI("http://www.91relax.com/images/activity/1_2.5.0.png");
 				//picture=http://www.91relax.com/images/activity/1_2.5.0.png
+
+				imgHeader.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+
+					}
+				});
 				linHorizontal.addView(inflate2);
 			}
 

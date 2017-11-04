@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
+			//加
 			case R.id.plus:
 				String num1 = this.num1.getText().toString().trim();
 				String num2 = this.num2.getText().toString().trim();
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 				break;
 
-
+			//减
 			case R.id.subtract:
 
 				BigDecimal b1 = new BigDecimal(this.num1.getText().toString().trim());
@@ -93,19 +93,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				result.setText(b1.subtract(b2).toString());
 //				result.setText(String.format(b1.subtract(b2)));
 				break;
+			//乘
 			case R.id.multiply:
 
 				BigDecimal n1 = new BigDecimal(this.num1.getText().toString().trim());
 				BigDecimal n2 = new BigDecimal(this.num2.getText().toString().trim());
 				result.setText(n1.multiply(n2).toString());
 				break;
+			//除
 			case R.id.devide:
 
 				BigDecimal m1 = new BigDecimal(this.num1.getText().toString().trim());
 				BigDecimal m2 = new BigDecimal(this.num2.getText().toString().trim());
 				BigDecimal divide = m1.divide(m2);
 				BigDecimal bigDecimal = divide.setScale(8, BigDecimal.ROUND_DOWN);
-				result.setText(bigDecimal.toPlainString());
+				result.setText(divide.toPlainString());
 				break;
 		}
 

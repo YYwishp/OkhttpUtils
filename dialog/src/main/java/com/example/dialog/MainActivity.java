@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.CheckedTextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
@@ -31,6 +32,8 @@ import sun.misc.BASE64Encoder;
  */
 public class MainActivity extends Activity {
 	private String stringMD5;
+	private CheckedTextView check;
+
 
 	/**
 	 * 解码
@@ -54,9 +57,14 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		MobclickAgent.setDebugMode( true );
 		setContentView(R.layout.activity_main);
+
+
 		/*JNCryptor cryptor = new AES256JNCryptor();
 		byte[] plaintext = "+86-15810623041".getBytes();
 		String key = "+86-15810623041relax2015";
+
+
+
 
 		Toast.makeText(this, "加密前+86-15810623041", Toast.LENGTH_SHORT).show();
 		stringMD5 = MD5Util.getStringMD5(key);
@@ -77,7 +85,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}*/
 		//=====================加密==================
-		/*String encode = "+86-15810623041";
+		String encode = "+86-15810623041";
 		String key = "+86-15810623041";
 		Log.e("加密前时间", System.currentTimeMillis()+"");
 		String enCode = enCode(encode, key);
@@ -87,7 +95,7 @@ public class MainActivity extends Activity {
 		String deCode = deCode(enCode, key);
 		Log.e("解密后时间", System.currentTimeMillis()+"");
 		//Toast.makeText(this, "解密后"+deCode, Toast.LENGTH_SHORT).show();
-		Log.e("解密后", deCode);*/
+		Log.e("解密后", deCode);
 		getDeviceInfo(this);
 		Log.e("mac地址",  getMac());
 
