@@ -135,7 +135,7 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 		rectPaint.setStrokeWidth(10);
 		textPaint.setColor(0xffe3ab00);
 		textPaint.setTextSize(30);
-		int width = Math.min(getMeasuredHeight(), getMeasuredWidth() / 2);
+		int width = Math.min(getMeasuredHeight(), getMeasuredWidth() / 6);
 
 		for (int i = 0; i < 6; i++) {
 			if (i <= text.length() && isFocus) {
@@ -143,7 +143,8 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 			} else {
 				rectPaint.setColor(0xff28262f);
 			}
-			Rect rect = new Rect(i * width + 10, 10, i * width + width - 10, width - 10);
+//			Rect rect = new Rect(i * width + 10, 10, i * width + width - 10, width - 10);
+			Rect rect = new Rect((6 - 1 - i) * width + (10 * (6 - i)), 10, (6 - i) * (width + 10), width + 18);
 			canvas.drawRect(rect, rectPaint);
 
 			list.add(rect);
@@ -152,7 +153,7 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 		for (int i = 0; i < text.length(); i++) {
 
 			textPaint.getTextBounds(text.substring(i, i + 1), 0, 1, textRect);
-			canvas.drawText(text.substring(i, i + 1), list.get(text.length()-i).left + (list.get(text.length()-i).right - list.get(text.length()-i).left) / 2 - textRect.width() / 2,
+			canvas.drawText(text.substring(i, i + 1), list.get(text.length()-i-1).left + (list.get(text.length()-i-1).right - list.get(text.length()-i-1).left) / 2 - textRect.width() / 2,
 					list.get(i).top + ((list.get(i).bottom - list.get(i).top) / 2) + textRect.height() / 2, textPaint);
 
 		}
