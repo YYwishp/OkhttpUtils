@@ -3,10 +3,10 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.myloadingbar.MainActivity">
+
+   >
    <Button
        android:text="loading"
        android:textDirection="locale"
@@ -18,13 +18,29 @@
 
    <com.example.myloadingbar.MyInputPassward
        android:id="@+id/inputview"
-       android:layoutDirection="rtl"
-       android:textDirection="rtl"
-       android:background="#f0f"
        android:layout_width="match_parent"
-       android:layout_height="50dp"/>
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="35dp"
+       android:layout_marginRight="35dp"
+       app:autoCloseKeyBoard="true"
+       android:numeric="integer"
+       android:digits="0123456789"
+       app:bgFill="true"
+       app:heightSpace="10dp"
+       app:isNumber="true"
+       app:numLength="4"
+       app:pwdType="XINGHAO"
+       app:rectChooseColor="#28262f"
+       app:rectNormalColor="#28262f"
+       app:rectStroke="20dp"
+       app:textColor="#e3ab00"
+       app:txtSize="35sp"
+       app:widthSpace="10dp"
+
+       />
 
    <EditText
+       android:visibility="gone"
        android:id="@+id/edittext"
        android:layout_width="300dp"
        android:layout_height="50dp"/>

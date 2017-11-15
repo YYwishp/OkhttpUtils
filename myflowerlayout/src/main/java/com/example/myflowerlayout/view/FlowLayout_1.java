@@ -6,17 +6,14 @@ package com.example.myflowerlayout.view;
  * Created by mwqi on 2014-4-18
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * 从左到右，正式没问题
- */
-public class FlowLayout extends ViewGroup {
+import java.util.ArrayList;
+import java.util.List;
+
+public class FlowLayout_1 extends ViewGroup {
 	public static final int DEFAULT_SPACING = 20;
 	/** 横向间隔 */
 	private int mHorizontalSpacing = DEFAULT_SPACING;
@@ -32,7 +29,13 @@ public class FlowLayout extends ViewGroup {
 	/** 最大的行数 */
 	private int mMaxLinesCount = Integer.MAX_VALUE;
 
-	public FlowLayout(Context context) {
+	public void setArCountry(boolean arCountry) {
+		isArCountry = arCountry;
+	}
+
+	private boolean isArCountry = false;
+
+	public FlowLayout_1(Context context) {
 		super(context);
 	}
 
@@ -65,6 +68,9 @@ public class FlowLayout extends ViewGroup {
 			}
 		});*/
 	}
+
+
+
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -198,11 +204,8 @@ public class FlowLayout extends ViewGroup {
 			int layoutWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
 			//剩余的宽度，是除了View和间隙的剩余空间
 			int surplusWidth = layoutWidth - mWidth - mHorizontalSpacing * (count - 1);
-			
-			
-			
-			
-			
+
+			//
 			if (surplusWidth >= 0) {// 剩余空间
 				// 采用float类型数据计算后四舍五入能减少int类型计算带来的误差
 				int splitSpacing = (int) (surplusWidth / count + 0.5);
@@ -223,8 +226,14 @@ public class FlowLayout extends ViewGroup {
 						int heightMeasureSpec = MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.EXACTLY);
 						view.measure(widthMeasureSpec, heightMeasureSpec);
 					}
-					//布局View
-					view.layout(left, top + topOffset, left + childWidth, top + topOffset + childHeight);
+					if (isArCountry) {
+						//布局View
+						view.layout(left + surplusWidth, top + topOffset, left + childWidth + surplusWidth, top + topOffset + childHeight);
+					} else {
+						//布局View
+						view.layout(left , top + topOffset, left + childWidth , top + topOffset + childHeight);
+					}
+
 					left += childWidth + mHorizontalSpacing; //为下一个View的left赋值
 				}
 			} else {
@@ -238,3 +247,30 @@ public class FlowLayout extends ViewGroup {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

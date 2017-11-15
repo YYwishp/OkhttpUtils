@@ -11,8 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myflowerlayout.view.FlowLayout;
+import com.example.myflowerlayout.view.FlowLayout_1;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends Activity {
 	private LinearLayout scroll;
@@ -32,8 +34,8 @@ public class MainActivity extends Activity {
 	
 		btButton = (Button) findViewById(R.id.bt_button);
 		textView = (TextView) findViewById(R.id.text);
-		
-		FlowLayout flowerLayout1 = new FlowLayout(this);
+
+		FlowLayout_1 flowerLayout1 = new FlowLayout_1(this);
 		flowerLayout1.setPadding(20, 20, 20, 20);
 		ArrayList<String> list = new ArrayList<>();
 		list.add("111");
@@ -51,8 +53,36 @@ public class MainActivity extends Activity {
 		list.add("ddd");
 		strings = new ArrayList<>();
 		
-		final FlowLayout flowerLayout2 = new FlowLayout(MainActivity.this);
+		final FlowLayout_1 flowerLayout2 = new FlowLayout_1(MainActivity.this);
 		flowerLayout2.setPadding(20, 20, 20, 20);
+
+		//====切换语言
+		Locale _UserLocale1 = LocaleUtils.getCurrentLocale(this);
+		switch (_UserLocale1.getLanguage()) {
+			case "ar":
+				flowerLayout2.setArCountry(true);
+				break;
+			default:
+				flowerLayout2.setArCountry(false);
+				break;
+		}
+		Locale _UserLocale = LocaleUtils.getUserLocale(this);
+		if (null != _UserLocale) {
+			switch (_UserLocale.getLanguage()) {
+				case "ar":
+					flowerLayout2.setArCountry(true);
+					break;
+				default:
+					flowerLayout2.setArCountry(false);
+					break;
+			}
+		}
+
+
+
+
+
+
 		for ( int i = 0; i < list.size(); i++) {
 			View inflate = View.inflate(this, R.layout.text_layout, null);
 			final TextView textView = (TextView) inflate.findViewById(R.id.text);
