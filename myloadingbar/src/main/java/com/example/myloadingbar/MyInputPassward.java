@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.text.Editable;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -258,6 +259,23 @@ public class MyInputPassward extends android.support.v7.widget.AppCompatEditText
 //		if (isNumber) {
 //			setInputType(InputType.TYPE_CLASS_NUMBER);
 //		}
+
+	}
+
+
+	public String getTextToStirng() {
+//		Editable text = super.getText();
+		return this.text;
+	}
+
+	/**
+	 * 这个方法用在使用了自定义键盘的情况下，其他条件下不能使用
+	 * 涉及到重新绘制
+	 * @param text
+	 */
+	public void setText(String text) {
+		this.text = text;
+		invalidate();
 
 	}
 

@@ -51,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
 					break;
 			}
 		}
+		//显示用数字键盘
 		edtPassword.setRawInputType(Configuration.KEYBOARD_12KEY);
 
+		edtPassword.setText("123");
 
 
 		//
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 	public void loading(View view) {
 		ZProgressHUD instance = ZProgressHUD.getInstance(this);
 		instance.setMessage("正在加载...");
-		Toast.makeText(this, final_text, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, edtPassword.getTextToStirng(), Toast.LENGTH_SHORT).show();
 		//SIMPLE_ROUND_SPINNER
 		instance.setSpinnerType(FADED_ROUND_SPINNER);
 //		instance.setSpinnerType(SIMPLE_ROUND_SPINNER);

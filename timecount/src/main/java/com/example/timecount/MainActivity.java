@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 		tvTime.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				CountDownTimerUtil countDownTimerUtil = new CountDownTimerUtil(tvTime, 60000, 1000);
+				CountDownTimerUtil countDownTimerUtil = new CountDownTimerUtil(tvTime, 5000, 1000);
 				countDownTimerUtil.start();
 			}
 		});
