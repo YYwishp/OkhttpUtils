@@ -1,28 +1,15 @@
 package com.example.animation;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.graphics.Color;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
-import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 
 import java.util.ArrayList;
 
@@ -30,15 +17,15 @@ import java.util.ArrayList;
  * View动画
  */
 public class MainActivity extends Activity {
+	private final int finalHeight = 0;
 	private ImageView imgLogo;
 	private Button button;
 	private int height;
-	private final int finalHeight = 0;
 	private int measuredHeight;
 	private int realHeight;
 	private CustomListView listview;
 	private ImageView img2;
-	private TwinklingRefreshLayout refreshLayout;
+	//private TwinklingRefreshLayout refreshLayout;
 	private ArrayList<String> strings;
 	
 	@Override
@@ -48,23 +35,21 @@ public class MainActivity extends Activity {
 		button = (Button) findViewById(R.id.button);
 		imgLogo = (ImageView) findViewById(R.id.img_logo);
 		img2 = (ImageView) findViewById(R.id.img2);
-		refreshLayout = (TwinklingRefreshLayout) findViewById(R.id.refresh);
-		
+		//refreshLayout = (TwinklingRefreshLayout) findViewById(R.id.refresh);
 		listview = (CustomListView) findViewById(R.id.listview);
 		//
 		strings = new ArrayList<>();
 		for (int i = 0; i < 30; i++) {
-			strings.add("我是第"+i);
+			strings.add("我是第" + i);
 		}
 		final MyListViewAdapter adapter = new MyListViewAdapter();
 		listview.setAdapter(adapter);
-		
 //		refreshLayout.setOverScrollRefreshShow(true);
 //		refreshLayout.setOverScrollBottomShow(true);
 		listview.setFocusable(false);
 		//scroll_gym.smoothScrollTo(0, 0);
 		
-		refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+	/*	refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
 			@Override
 			public void onRefresh(TwinklingRefreshLayout refreshLayout1) {
 				new Handler().postDelayed(new Runnable() {
@@ -104,29 +89,24 @@ public class MainActivity extends Activity {
 					}
 				}, 1000);
 			}
-		});
-		
+		});*/
 	}
 	
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		measuredHeight = imgLogo.getMeasuredHeight();
-		
 		ViewGroup.LayoutParams layoutParams = imgLogo.getLayoutParams();
 		height = layoutParams.height;
 		realHeight = imgLogo.getHeight();
 	/*	img2.layout(0,0,400,500);
 		img2.invalidate();*/
-		
-		
 	}
 	
 	public void startAnimation(View view) {
-		Log.e("tag","measuredHeight"+measuredHeight);
-		Log.e("tag","layoutParamsheight"+height);
-		Log.e("tag","realHeight"+realHeight);
-		
-		HiddenAnimUtils.newInstance(this,imgLogo,button,realHeight).toggle();
+		Log.e("tag", "measuredHeight" + measuredHeight);
+		Log.e("tag", "layoutParamsheight" + height);
+		Log.e("tag", "realHeight" + realHeight);
+		HiddenAnimUtils.newInstance(this, imgLogo, button, realHeight).toggle();
 	}
 	
 	public void startAnimationY(View view) {
@@ -167,9 +147,7 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	
-	
-	public class MyListViewAdapter extends BaseAdapter{
+	public class MyListViewAdapter extends BaseAdapter {
 		@Override
 		public int getCount() {
 			return strings.size();
@@ -187,49 +165,22 @@ public class MainActivity extends Activity {
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			TextView textView = new TextView(MainActivity.this);
-			textView.setTextColor(Color.BLUE);
-			textView.setText(strings.get(position));
-			return textView;
+			View inflate = View.inflate(MainActivity.this, R.layout.item, null);
+			final TextView text = (TextView) inflate.findViewById(R.id.text);
+			final LinearLayout lin = (LinearLayout) inflate.findViewById(R.id.lin);
+			
+			text.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					//HiddenAnimUtils.newInstance(MainActivity.this,lin,text,400).toggle();
+					if (lin.getVisibility() == View.GONE) {
+						lin.setVisibility(View.VISIBLE);
+					} else {
+						lin.setVisibility(View.GONE);
+					}
+				}
+			});
+			return inflate;
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
