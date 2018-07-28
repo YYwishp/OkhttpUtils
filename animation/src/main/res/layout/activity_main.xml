@@ -21,7 +21,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="200dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -67,6 +67,13 @@
 
 
             </LinearLayout>
+
+   <!-- <com.example.animation.CustomListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.example.animation.CustomListView>-->
         </ScrollView>
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 </LinearLayout>
