@@ -11,7 +11,6 @@ import android.util.Log;
 import android.widget.CheckedTextView;
 import android.widget.Toast;
 
-import com.umeng.analytics.MobclickAgent;
 
 import org.cryptonode.jncryptor.AES256JNCryptor;
 import org.cryptonode.jncryptor.CryptorException;
@@ -55,7 +54,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		MobclickAgent.setDebugMode( true );
+		//MobclickAgent.setDebugMode( true );
 		setContentView(R.layout.activity_main);
 
 
@@ -85,15 +84,23 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}*/
 		//=====================加密==================
-		String encode = "+86-15810623041";
-		String key = "+86-15810623041";
-		Log.e("加密前时间", System.currentTimeMillis()+"");
-		String enCode = enCode(encode, key);
-		Log.e("加密后时间", System.currentTimeMillis()+"");
-		Toast.makeText(this, "加密后"+enCode, Toast.LENGTH_LONG).show();
-		Log.e("加密后", enCode);
-		String deCode = deCode(enCode, key);
-		Log.e("解密后时间", System.currentTimeMillis()+"");
+//		String encode = "+86-15810623041";
+//		String key = "+86-15810623041";
+//
+//
+		String encode = "AwH9WhAG97FXaArwQ1FGx3QeedG9omnFInTCbDoJfEpNHXKb1W1/HtuAoKQtyUh+rrqrBmsL/oCgNxVm12Zu5vh5VyZU4UtrFIapJXoLMCDDD/KGKoo4UXJytfnJ5tS3wIYL6zhdBEzsJtbFG6f8OxN9Xkx/bRT55OHnTZuy1YdEtgIFpLDQtlfWuNGr7wRszWC9ap2xF2ifLKH/cl2ZVE0YSUhaFpSMqNK5uakbIC6fMFgut7T4BQzHlw6y2IxeST/hCnJ8rlLgFgJx6SZneGhEAcQa3HQ5JivtvO6Cn0W5faHKmKoWo2xXJm0p8gxou7kmGCoMCT/6MErD/f6NHvu/iQTmXW6KYOQt2ZVaWxhtjEF7Q+PnjEQ/osirfV/5ZuKNgU7AfiPDR55bvFj8OyPumM2RUMu0V9fI9YV5Cb3X4OfSZSLrqxWaiu5x74DRcV4ZMx0PUQe4LNQBN5YqaTdTiryK6hrDOrG9pXTqC5TVIHuqv1GyyYuBJ/kngZ4MiL7JicbOHiQB6F/bmVtsczTuXnk3x+G5zacfnl5nRUEcdJc0R1zmaN+k7Wtws+fcnYTWv4AzxvHS5xLhBM9WdzPai3MsNX1ebc3stwegewxBhZddXO0AWl6H3oFk16cG1m2R8HJQLOGLkQCDAjfxeJcDxLIC8u1ENaMgwnrov4DUDqib36OZbkz7jis5JQLw2HP/CgUeiYSqEenXwBoHfPwy77UiRc6FDcxrfyku+8O84bhRnWIDwlJcvVvsrr145yvY7KmFdgD0e41GK268SxQ2lRjotxcpW80J6lV6+52kf83nsiOLTILw81mjUL0vUsUi1V8OJQAdH1UYa8Jp70fIEA3g0b4rApIs5FATHhAdjsvHXnsoAFl7t5vL1W3oebo=";
+		String key = "13691239207@123456";
+
+//
+//		Log.e("加密前时间", System.currentTimeMillis()+"");
+//		String enCode = enCode(encode, key);
+//		Log.e("加密后时间", System.currentTimeMillis()+"");
+//		Toast.makeText(this, "加密后"+enCode, Toast.LENGTH_LONG).show();
+//		Log.e("加密后", enCode);
+
+
+		String deCode = deCode(encode, key);
+//		Log.e("解密后时间", System.currentTimeMillis()+"");
 		//Toast.makeText(this, "解密后"+deCode, Toast.LENGTH_SHORT).show();
 		Log.e("解密后", deCode);
 		getDeviceInfo(this);
@@ -102,11 +109,11 @@ public class MainActivity extends Activity {
 	}
 	public void onResume() {
 		super.onResume();
-		MobclickAgent.onResume(this);
+//		MobclickAgent.onResume(this);
 	}
 	public void onPause() {
 		super.onPause();
-		MobclickAgent.onPause(this);
+//		MobclickAgent.onPause(this);
 	}
 
 	/**
@@ -165,8 +172,9 @@ public class MainActivity extends Activity {
 		try {
 			JNCryptor cryptor = new AES256JNCryptor();
 			byte[] decode = deCodeBase64(decodeString);
-			String keyMD5 = MD5Util.getStringMD5(key+"relax2015");
-			byte[] bytes = cryptor.decryptData(decode, keyMD5.toCharArray());
+//			String keyMD5 = MD5Util.getStringMD5(key+"relax2015");
+//			String keyMD5 = MD5Util.getStringMD5(key);
+			byte[] bytes = cryptor.decryptData(decode, key.toCharArray());
 			String realString = new String(bytes);
 			//Log.e("解密后", realString);
 			return realString;

@@ -21,7 +21,7 @@ public class MyToast {
 		Toast toast=new Toast(context);     //创建一个toast
 
 		toast.setDuration(Toast.LENGTH_SHORT);          //设置toast显示时间，整数值
-		toast.setGravity(Gravity.CENTER|Gravity.BOTTOM,0,400);    //toast的显示位置，这里居中显示
+		toast.setGravity(Gravity.CENTER,0,0);    //toast的显示位置，这里居中显示
 
 		toast.setView(view);     //設置其显示的view,
 		toast.show();             //显示toast

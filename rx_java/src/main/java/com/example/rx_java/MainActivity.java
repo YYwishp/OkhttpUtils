@@ -2,16 +2,13 @@ package com.example.rx_java;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-import java.security.PrivateKey;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
@@ -21,11 +18,12 @@ import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -97,9 +95,10 @@ public class MainActivity extends AppCompatActivity {
 		Toast.makeText(this, "点是第几位"+posDot+"长度是"+str.length(), Toast.LENGTH_LONG).show();*/
 //		String s = doRxJava();
 //		Log.e("异步回调用", s+"qqqqq");
-		doRxjava2();
+//		doRxjava2();
 //		doRxJavaFlowable();
 //		doRxjavaTest();
+		flatMap();
 		/*handler = new Handler(new Handler.Callback() {
 			@Override
 			public boolean handleMessage(Message msg) {
@@ -134,10 +133,6 @@ public class MainActivity extends AppCompatActivity {
 				//myHandler.sendEmptyMessage(1);
 			}
 		}).start();*/
-
-
-
-
 	}
 
 	public String doRxJava() {
@@ -152,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
 					//Thread.sleep(2000);  //每次发送完事件延时2秒
 				}*/
 				emitter.onNext(1);
-
 			}
 		}).subscribeOn(Schedulers.io())
 				/*.filter(new Predicate<Integer>() {
@@ -170,12 +164,9 @@ public class MainActivity extends AppCompatActivity {
 						Log.e(TAG, "" + integer);
 						//Thread.sleep(2000);
 						str[0] = "asdjkfsdf";
-
 					}
 				});
 		return str[0];
-
-
 	}
 
 	public void doRxjava2() {
@@ -184,12 +175,11 @@ public class MainActivity extends AppCompatActivity {
 			public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
 				for (int i = 0; ; i++) {
 					emitter.onNext(null);
-					Log.e(TAG, "emitter"+i);
+					Log.e(TAG, "emitter" + i);
 					Thread.sleep(2000);  //发送事件之后延时2秒
 				}
 			}
 		}).subscribeOn(Schedulers.io());
-
 		Observable<String> observable2 = Observable.create(new ObservableOnSubscribe<String>() {
 			@Override
 			public void subscribe(ObservableEmitter<String> emitter) throws Exception {
@@ -198,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
 				emitter.onNext("C");*/
 			}
 		}).subscribeOn(Schedulers.io());
-
 		Observable.zip(observable1, observable2, new BiFunction<Integer, String, String>() {
 			@Override
 			public String apply(Integer integer, String s) throws Exception {
@@ -213,17 +202,15 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void accept(Throwable throwable) throws Exception {
 				Log.w(TAG, throwable);
-
 			}
 		});
 	}
 
 	public void doRxJavaFlowable() {
 		Flowable.create(new FlowableOnSubscribe<Integer>() {
-
 			@Override
 			public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
-				for (int i = 0;; i++) {
+				for (int i = 0; ; i++) {
 					Log.e(TAG, "emit " + i);
 					emitter.onNext(i);
 				}
@@ -234,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
 					@Override
 					public void onSubscribe(Subscription s) {
 						Log.e(TAG, "onSubscribe");
-
 					}
 
 					@Override
@@ -284,6 +270,39 @@ public class MainActivity extends AppCompatActivity {
 					@Override
 					public void onComplete() {
 						Log.e(TAG, "onComplete");
+					}
+				});
+	}
+
+	public void flatMap() {
+		Observable.create(new ObservableOnSubscribe<String>() {
+			@Override
+			public void subscribe(ObservableEmitter<String> e) throws Exception {
+				Log.e("create", Thread.currentThread().getName());
+				e.onNext("1111");
+			}
+		}).doOnNext(new Consumer<String>() {
+			@Override
+			public void accept(String s) throws Exception {
+				String s1 = s + "222";
+				Log.e("线程doOnNext"+s1, Thread.currentThread().getName());
+			}
+		}).subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.flatMap(new Function<String, ObservableSource<Integer>>() {
+					@Override//将string转化INteger
+					public ObservableSource<Integer> apply(String s) throws Exception {
+						Integer integer = Integer.valueOf(s);
+						ArrayList<Integer> objects = new ArrayList<>();
+						Log.e("flatMap", Thread.currentThread().getName());
+						return Observable.just(integer);
+					}
+				})
+				.subscribe(new Consumer<Integer>() {
+					@Override
+					public void accept(Integer integer) throws Exception {
+						Log.e("结果", integer + "");
+						Log.e("subscribe", Thread.currentThread().getName());
 					}
 				});
 	}

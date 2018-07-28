@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
 						strings.add("我是增加的");
 						strings.add("我是增加的");
 						strings.add("我是增加的");
-						
+
 						adapter.notifyDataSetChanged();
 						
 						

@@ -187,7 +187,7 @@ public class ZProgressHUD extends Dialog {
             
 			@Override
 			protected Long doInBackground(String... params) {
-				SystemClock.sleep(500);
+				//SystemClock.sleep(500);
 				return null;
 			}
             

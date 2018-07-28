@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
 	public void loading(View view) {
 		ZProgressHUD instance = ZProgressHUD.getInstance(this);
-		instance.setMessage("正在加载...");
-		Toast.makeText(this, edtPassword.getTextToStirng(), Toast.LENGTH_SHORT).show();
+		instance.setMessage("正在加载，请稍后......");
+		//Toast.makeText(this, edtPassword.getTextToStirng(), Toast.LENGTH_SHORT).show();
 		//SIMPLE_ROUND_SPINNER
 		instance.setSpinnerType(FADED_ROUND_SPINNER);
 //		instance.setSpinnerType(SIMPLE_ROUND_SPINNER);

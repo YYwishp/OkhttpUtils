@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		MyToast.toast(this,"sdfgsdfsdfsdfasdsdfsdfsdfasdfasdfasdfasdfasdfsadfasdfasdfasdfsadfsdfasdfsdfsadfsadfasdfsadfsadfsdf");
+		MyToast.toast(this,"112233");
 
 
 		ArrayList <Bean> list1 =new ArrayList<Bean>();
